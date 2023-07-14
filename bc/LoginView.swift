@@ -26,7 +26,7 @@ struct LoginView: View {
                         
                         HStack {
                             Image(systemName: "person").foregroundColor(.gray)
-                            TextField("Введите ваш email", text: $email)
+                            TextField("Enter your email", text: $email)
                                 .textFieldStyle(.roundedBorder)
                                 .padding(.trailing)
                                 .disableAutocorrection(true)
@@ -35,25 +35,25 @@ struct LoginView: View {
                         .padding(.all)
                         HStack {
                             Image(systemName: "key").foregroundColor(.gray)
-                            SecureField("Введите ваш пароль", text: $pass)
+                            SecureField("Enter your password", text: $pass)
                                 .textFieldStyle(.roundedBorder)
                                 .padding(.trailing)
                                 .disableAutocorrection(true)
                                 .autocapitalization(.none)
                         }
                         .padding(.all)
-                        Button("Войти") {
+                        Button("Enter") {
                             showProgressView.toggle()
                             loggin()
                         }
                         .buttonStyle(BlueButton())
                         .padding(.all)
                         .alert(isPresented: $isAlert) {
-                            Alert(title: Text("Ошибка:"), message: Text("Неверный пароль или email!"))
+                            Alert(title: Text("Error"), message: Text("Invalid password or email"))
                         }
                     }
                     Spacer()
-                    Text(String(format: "Версия: %@", Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"))
+                    Text(getVersion())
                         .font(.system(size: 12))
                         .padding(.bottom)
                 }
@@ -73,6 +73,11 @@ struct LoginView: View {
             isAlert = true
             showProgressView = false
         }
+    }
+    
+    func getVersion() -> String {
+        let version = LocalizedStringKey("Version")
+        return String(format: "%@: %@", version.stringKey ?? "-", Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-")
     }
     
 }
