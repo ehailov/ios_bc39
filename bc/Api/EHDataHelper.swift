@@ -9,23 +9,25 @@ import Foundation
 import RxSwift
 
 let url = "http://bc-24.ru/api"
+public typealias SaveResult = (NSError?) -> ()
 public typealias LogginResult = (NSError?) -> ()
 public typealias DataResult = () -> ()
+public typealias PickerResult = (_ data: [String]?) -> ()
 
-final public class DataHelper {
+final public class EHDataHelper {
     
-    static let data = DataHelper()
+    static let data = EHDataHelper()
     private var httpConnection: HttpConnection!
-    private var auth: AuthHelper!
+    public var auth: EHAuthHelper!
     public var rxData: BehaviorSubject<DataModel>!
     private var model: DataModel!
     
-    public static func share() -> DataHelper {
+    public static func share() -> EHDataHelper {
         return data
     }
     
     init() {
-        self.auth = AuthHelper()
+        self.auth = EHAuthHelper()
         self.model = DataModel()
         self.httpConnection = HttpConnection()
         self.rxData = BehaviorSubject<DataModel>(value: self.model)
@@ -48,14 +50,6 @@ final public class DataHelper {
         return auth.isLoggin()
     }
     
-    public func log(_ text: String, _ error: NSError?) {
-        if error != nil {
-            NSLog("BC Error: %@ %@", text, error!.localizedDescription)
-            return
-        }
-        NSLog("BC Log: %@ ", text)
-    }
-    
     private func getUrl(_ address: String) -> String {
         return String(format: "%@/%@", url, address)
     }
@@ -76,6 +70,13 @@ final public class DataHelper {
         }
     }
     
+    //MARK: - updateData
+    public func updateData() {
+        model.clearAll()
+        onNext(model)
+        getData()
+    }
+    
     // MARK: - onLoggin
     public func onLoggin(_ email: String, pass: String, logginResult: @escaping LogginResult) {
         let parameters = ["login": email, "password": pass, "device_token": "-", "fsm_token": "-"]
@@ -84,6 +85,7 @@ final public class DataHelper {
                 let data = result as! [String: Any]
                 let model = AuthModel(root: data["root"] as! Bool, sid: data["sid"] as! String, error: data["error"] as! String, mqtt: data["mqtt"] as! Bool)
                 auth.update(model: model)
+                getData()
             }
             logginResult(error)
         }
@@ -99,7 +101,7 @@ final public class DataHelper {
                 }
                 self.model.setFinanse(data: data)
                 self.onNext(self.model)
-                self.log("getFinanse()", error)
+                EHLogger.verbose("getFinanse()", error)
             }
         }
     }
@@ -114,7 +116,7 @@ final public class DataHelper {
                 }
                 self.model.setJurnal(data: data)
                 self.onNext(self.model)
-                self.log("getJurnal()", error)
+                EHLogger.verbose("getJurnal()", error)
             }
         }
     }
@@ -129,7 +131,7 @@ final public class DataHelper {
                 }
                 self.model.setFile(data: data)
                 self.onNext(self.model)
-                self.log("getFile()", error)
+                EHLogger.verbose("getFile()", error)
             }
         }
     }
@@ -144,7 +146,7 @@ final public class DataHelper {
                 }
                 self.model.setProfile(data: data)
                 self.onNext(self.model)
-                self.log("getProfile()", error)
+                EHLogger.verbose("getProfile()", error)
             }
         }
     }
@@ -159,7 +161,7 @@ final public class DataHelper {
                 }
                 self.model.setNum(data: data)
                 self.onNext(self.model)
-                self.log("getNum()", error)
+                EHLogger.verbose("getNum()", error)
             }
         }
     }
@@ -174,7 +176,7 @@ final public class DataHelper {
                 }
                 self.model.setAcc(data: data)
                 self.onNext(self.model)
-                self.log("getAcc()", error)
+                EHLogger.verbose("getAcc()", error)
             }
         }
     }
@@ -189,7 +191,7 @@ final public class DataHelper {
                 }
                 self.model.setObj(data: data)
                 self.onNext(self.model)
-                self.log("getObj()", error)
+                EHLogger.verbose("getObj()", error)
             }
         }
     }
@@ -205,8 +207,64 @@ final public class DataHelper {
                 }
                 self.model.setUsers(data: data)
                 self.onNext(self.model)
-                self.log("getUsers()", error)
+                EHLogger.verbose("getUsers()", error)
             }
+        }
+    }
+    
+    //MARK: - Staff
+    public func getArticle(result: @escaping PickerResult) {
+        let address = String(format: "%@/article/", url)
+        httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
+            if error != nil {
+                result(nil)
+                return
+            }
+            result(PickerModel.getPickerModel(data!))
+        }
+    }
+    
+    //MARK: - Object
+    public func getObject(result: @escaping PickerResult) {
+        let address = String(format: "%@/objects/", url)
+        httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
+            if error != nil {
+                result(nil)
+                return
+            }
+            result(PickerModel.getPickerModel(data!))
+        }
+    }
+    
+    //MARK: - Counterparty
+    public func getCounterparty(result: @escaping PickerResult) {
+        let address = String(format: "%@/accoun/", url)
+        httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
+            if error != nil {
+                result(nil)
+                return
+            }
+            result(PickerModel.getPickerModel(data!))
+        }
+    }
+    
+    //MARK: - Contract number
+    public func getContractNumber(result: @escaping PickerResult) {
+        let address = String(format: "%@/number/", url)
+        httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
+            if error != nil {
+                result(nil)
+                return
+            }
+            result(PickerModel.getPickerModel(data!))
+        }
+    }
+    
+    //MARK: - Save finance
+    public func setFinanse(_ parameters: [String : Any], result: @escaping SaveResult) {
+        let address = String(format: "%@/finanse/save/", url)
+        httpConnection.upload(address, parameters: parameters) { data, error in
+            result(error)
         }
     }
 }

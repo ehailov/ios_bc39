@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class AuthHelper {
+public class EHAuthHelper {
     
     public var sid: String!
     public var isRoot: Bool
