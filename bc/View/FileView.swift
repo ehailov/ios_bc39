@@ -17,7 +17,7 @@ struct FileView: View {
                 Text(model.error!.localizedDescription).foregroundColor(.primary)
             } else if model.model != nil {
                 if model.model!.isEmpty {
-                    Text("Нет данных").foregroundColor(.primary)
+                    Text("noData").foregroundColor(.primary)
                 } else {
                     List(model.model!) { data in
                         FileItem(data: data)

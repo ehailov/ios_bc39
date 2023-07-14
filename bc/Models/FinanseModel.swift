@@ -12,7 +12,7 @@ public struct FinanseModel: Identifiable {
     public var accoun: String
     public var article: String
     public var completed: Bool
-    public var date: String
+    public var date: String = ""
     public var dohod: Bool
     public var image: String
     public var objects: String
@@ -28,7 +28,6 @@ public struct FinanseModel: Identifiable {
         self.accoun = data["accoun"] as! String
         self.article = data["article"] as! String
         self.completed = data["completed"] as! Bool
-        self.date = Utils.dateTimeFormat(data["data"] as! String)
         self.dohod = data["dohod"] as! Bool
         self.image = data["file"] as! String
         self.objects = data["id_objects"] as! String
@@ -38,6 +37,14 @@ public struct FinanseModel: Identifiable {
         self.typeOfWork = data["type_of_work"] as? String ?? ""
         self.work = data["work"] as! String
         self.text = data["text"] as! String
+        self.date = self.getDate(string: data["data"] as? String)
+    }
+    
+    private func getDate(string: String?) -> String {
+        if string == nil {
+            return "-"
+        }
+        return Utils.dateFrom(string: string!, format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?? "-"
     }
     
 }

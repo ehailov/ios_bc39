@@ -14,7 +14,7 @@ import RxSwift
 extension Reactive where Base: UISwitch {
 
     /// Reactive wrapper for `isOn` property.
-    public var isOn: ControlProperty<Bool> {
+    public var isComplete: ControlProperty<Bool> {
         return value
     }
 

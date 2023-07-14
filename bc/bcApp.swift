@@ -11,7 +11,8 @@ import SwiftUI
 struct bcApp: App {
     
     @State private var showBcView: Bool = false
-    @State private var text: String = ""
+    @State private var helloString: String = ""
+    @State private var version: String = ""
     
     var body: some Scene {
         
@@ -25,8 +26,20 @@ struct bcApp: App {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .edgesIgnoringSafeArea(.all)
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Text(helloString)
+                                .font(.title)
+                                .foregroundStyle(.white)
+                        }
+                        Spacer()
+                        Text(version)
+                            .font(.system(size: 12))
+                            .padding(.bottom)
+                            .foregroundColor(.white)
+                    }
                     
-                    Text(String(format: "Привет %@!", text)).font(.title).foregroundStyle(.white)
                 }
             }
             .onAppear {
@@ -35,13 +48,24 @@ struct bcApp: App {
         }
     }
     
-    func viewDidLoad() {
-        text = UserDefaults.standard.string(forKey: "FirstName") ?? ""
+    private func viewDidLoad() {
+        getHelloString()
+        getVersionString()
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             withAnimation {
                 self.showBcView = true
             }
         }
     }
-
+    
+    private func getHelloString() {
+        let user = UserDefaults.standard.string(forKey: "FirstName") ?? ""
+        let hello = LocalizedStringKey("Hello").stringValue()
+        helloString = String(format: "%@ %@", hello, user)
+    }
+    
+    private func getVersionString() {
+        let version = LocalizedStringKey("Version").stringValue()
+        self.version = String(format: "%@: %@", version, Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-")
+    }
 }

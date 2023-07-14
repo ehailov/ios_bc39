@@ -8,13 +8,13 @@
 import SwiftUI
 import AVFoundation
  
-struct CustomCameraView: View {
+struct CameraView: View {
     
     @Binding var image: UIImage?
     @State var didTapCapture: Bool = false
+    
     var body: some View {
         ZStack(alignment: .bottom) {
-            
             CustomCameraRepresentable(image: self.$image, didTapCapture: $didTapCapture)
             CaptureButtonView().onTapGesture {
                 self.didTapCapture = true
@@ -37,16 +37,17 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ cameraViewController: CustomCameraController, context: Context) {
-        
         if(self.didTapCapture) {
             cameraViewController.didTapRecord()
         }
     }
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
     class Coordinator: NSObject, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate {
+        
         let parent: CustomCameraRepresentable
         
         init(_ parent: CustomCameraRepresentable) {
@@ -68,15 +69,12 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
 class CustomCameraController: UIViewController {
     
     var image: UIImage?
-    
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
-    
-    //DELEGATE
     var delegate: AVCapturePhotoCaptureDelegate?
     
     func didTapRecord() {
@@ -90,6 +88,7 @@ class CustomCameraController: UIViewController {
         super.viewDidLoad()
         setup()
     }
+    
     func setup() {
         setupCaptureSession()
         setupDevice()
@@ -97,6 +96,7 @@ class CustomCameraController: UIViewController {
         setupPreviewLayer()
         startRunningCaptureSession()
     }
+    
     func setupCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
     }
@@ -116,14 +116,11 @@ class CustomCameraController: UIViewController {
                 break
             }
         }
-        
         self.currentCamera = self.backCamera
     }
     
-    
     func setupInputOutput() {
         do {
-            
             let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
             captureSession.addInput(captureDeviceInput)
             photoOutput = AVCapturePhotoOutput()
@@ -135,8 +132,8 @@ class CustomCameraController: UIViewController {
         }
         
     }
-    func setupPreviewLayer()
-    {
+    
+    func setupPreviewLayer() {
         self.cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         self.cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
@@ -144,13 +141,16 @@ class CustomCameraController: UIViewController {
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
         
     }
+    
     func startRunningCaptureSession(){
         captureSession.startRunning()
     }
 }
 
 struct CaptureButtonView: View {
+    
     @State private var animationAmount: CGFloat = 1
+    
     var body: some View {
         Image(systemName: "video").font(.largeTitle)
             .padding(30)
@@ -165,8 +165,7 @@ struct CaptureButtonView: View {
                     .animation(Animation.easeOut(duration: 1)
                         .repeatForever(autoreverses: false))
         )
-            .onAppear
-            {
+            .onAppear {
                 self.animationAmount = 2
         }
     }

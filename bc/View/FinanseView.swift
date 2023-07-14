@@ -18,7 +18,7 @@ struct FinanseView: View {
                 Text(model.error!.localizedDescription).foregroundColor(.primary)
             } else if model.model != nil {
                 if model.model!.isEmpty {
-                    Text("Нет данных").foregroundColor(.primary)
+                    Text("noData").foregroundColor(.primary)
                 } else {
                     List(model.model!) { data in
                         FinanseItem(data: data)
@@ -52,19 +52,19 @@ struct FinanseItem: View {
             }
             Spacer()
             VStack {
-                LabeledContent("Направление:", value: data.text)
+                LabeledContent("direction", value: data.text)
                     .font(.system(size: 12)).foregroundColor(Color.white)
-                LabeledContent("Вид работ:", value: data.typeOfWork)
+                LabeledContent("typeOfWork", value: data.typeOfWork)
                     .font(.system(size: 12)).foregroundColor(Color.white)
-                LabeledContent("Объект:", value: data.objects)
+                LabeledContent("anObject", value: data.objects)
                     .font(.system(size: 12)).foregroundColor(Color.white)
-                LabeledContent("Контрагент:", value: data.accoun)
+                LabeledContent("counterparty", value: data.accoun)
                     .font(.system(size: 12)).foregroundColor(Color.white)
-                LabeledContent("Номер договора:", value: data.number)
+                LabeledContent("contractNumber", value: data.number)
                     .font(.system(size: 12)).foregroundColor(Color.white)
-                LabeledContent("Сумма:", value: data.sum)
+                LabeledContent("theAmount", value: data.sum)
                     .font(.system(size: 12)).foregroundColor(Color.white)
-                LabeledContent("Касса:", value: data.kassa)
+                LabeledContent("cash", value: data.kassa)
                     .font(.system(size: 12)).foregroundColor(Color.white)
             }
         }

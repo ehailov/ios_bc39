@@ -9,7 +9,8 @@ import Foundation
 import RxSwift
 
 let url = "http://bc-24.ru/api"
-public typealias SaveResult = (NSError?) -> ()
+public typealias CashResult = ([String: Any]?, NSError?) -> ()
+public typealias SaveResult = ([String: String]?, NSError?) -> ()
 public typealias LogginResult = (NSError?) -> ()
 public typealias DataResult = () -> ()
 public typealias PickerResult = (_ data: [String]?) -> ()
@@ -18,7 +19,7 @@ final public class EHDataHelper {
     
     static let data = EHDataHelper()
     private var httpConnection: HttpConnection!
-    public var auth: EHAuthHelper!
+    private var auth: EHAuthHelper!
     public var rxData: BehaviorSubject<DataModel>!
     private var model: DataModel!
     
@@ -41,9 +42,10 @@ final public class EHDataHelper {
         rxData.onNext(data)
     }
     
-    public func onLogOut() {
+    public func onLogOut(result: @escaping () -> ()) {
         model.clearAll()
         auth.logOut()
+        result()
     }
     
     public func isLogin() -> Bool {
@@ -105,7 +107,7 @@ final public class EHDataHelper {
             }
         }
     }
- 
+    
     // MARK: - Jurnal
     private func getJurnal() {
         httpConnection.execute(getUrl("jurnal/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
@@ -261,10 +263,31 @@ final public class EHDataHelper {
     }
     
     //MARK: - Save finance
-    public func setFinanse(_ parameters: [String : Any], result: @escaping SaveResult) {
+    public func setFinanse(parameters: [String : Any], result: @escaping SaveResult) {
         let address = String(format: "%@/finanse/save/", url)
+        var parameters = parameters
+        parameters["sid"] = auth.sid
         httpConnection.upload(address, parameters: parameters) { data, error in
-            result(error)
+            let data = data as? [String: String] ?? nil
+            result(data, error)
         }
     }
+    
+    public func setComleted(id: String, result: @escaping SaveResult) {
+        let address = String(format: "%@/save/completed/", url)
+        httpConnection.execute(address, parameters: ["id": id], method: "GET") { _, error in
+            result(nil, error)
+        }
+    }
+    
+    //MARK: - Kassa
+    public func setCash(parameters: [String : String], comleted: Bool, result: @escaping CashResult) {
+        let address = comleted == true ? String(format: "%@/kassa/completed/", url) : String(format: "%@/kassa/", url)
+        var parameters = parameters
+        parameters["sid"] = auth.sid
+        httpConnection.execute(address, parameters: parameters, method: "POST") { data, error in
+            result(data as? [String : Any], error)
+        }
+    }
+    
 }

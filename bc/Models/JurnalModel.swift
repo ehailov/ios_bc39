@@ -12,7 +12,6 @@ public struct JurnalModel: Identifiable {
     public var id: Int
     public var work: String
     public var obj: String
-    public var date: String
     public var typeOfWork: String
     public var worker: String
     public var file0: String
@@ -25,12 +24,12 @@ public struct JurnalModel: Identifiable {
     public var file7: String
     public var file8: String
     public var file9: String
+    public var date: String = "-"
     
     init(id: Int, data: [String: String]) {
         self.id = id
         self.work = data["work"] ?? ""
         self.obj = data["obj"] ?? ""
-        self.date = Utils.dateFormat(data["date"] ?? "")
         self.typeOfWork = data["text"] ?? ""
         self.worker = data["worker"] ?? ""
         self.file0 = data["file"] ?? ""
@@ -43,5 +42,13 @@ public struct JurnalModel: Identifiable {
         self.file7 = data["file7"] ?? ""
         self.file8 = data["file8"] ?? ""
         self.file9 = data["file9"] ?? ""
+        self.date = getDate(data["date"])
+    }
+    
+    private func getDate(_ string: String?) -> String {
+        if string == nil {
+            return "-"
+        }
+        return Utils.dateFrom(string: string!, format: "yyyy-MM-dd") ?? "-"
     }
 }

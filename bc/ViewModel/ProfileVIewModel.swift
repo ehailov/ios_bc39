@@ -16,9 +16,11 @@ public class ProfileVIewModel: ObservableObject, BaseViewModel {
     @Published public var nums: [NumModel]? = nil
     @Published public var users: [UserModel]? = nil
     @Published public var error: NSError?
+    @Published public var version: String = ""
+    @Published public var isProgressBar: Bool = false
     
     init() {
-        let rx = DataHelper.share().rxData
+        let rx = EHDataHelper.share().rxData
         rx?.subscribe(onNext: { data in
             self.subscribe(data, error: nil)
         }, onError: { error in
@@ -38,6 +40,7 @@ public class ProfileVIewModel: ObservableObject, BaseViewModel {
         users = data?.users ?? nil
         reloadView()
         self.error = error
+        getVersion()
     }
     
     public func updateData() {
@@ -47,7 +50,20 @@ public class ProfileVIewModel: ObservableObject, BaseViewModel {
         objs = nil
         users = nil
         reloadView()
-        DataHelper.share().getData()
+        EHDataHelper.share().updateData()
+    }
+    
+    public func logOut(result: @escaping () -> ()) {
+        isProgressBar.toggle()
+        EHDataHelper.share().onLogOut {
+            self.isProgressBar.toggle()
+            result()
+        }
+    }
+    
+    public func getVersion() {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
+        self.version = String(format: "%@: %@", LocalizedStringKey("Version").stringValue(), version)
     }
 
 }

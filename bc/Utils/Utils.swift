@@ -6,31 +6,66 @@
 //
 
 import Foundation
+import SwiftUI
 
+// MARK: - Utils
 public class Utils {
     
-    public static func dateTimeFormat (_ string: String) -> String {
-        return formate(getFormatter("yyyy-MM-dd'T'HH:mm:ss.SSSZ"), string: string)
+    public static func stringFrom(date: Date) -> String {
+        let df = getFormatterFrom(format: "dd.MM.yyyy")
+        return df.string(from: date) ?? "-"
     }
     
-    public static func dateFormat (_ string: String) -> String {
-        return formate(getFormatter("yyyy-MM-dd"), string: string)
-    }
-    
-    private static func formate(_ formatter: DateFormatter, string: String) -> String {
-        let date = formatter.date(from: string)
-        let df = DateFormatter()
-        df.dateFormat = "dd.MM.yyyy"
-        if date == nil {
-            return ""
+    public static func dateFrom(string: String, format: String) -> String? {
+        guard let date = getDateFrom(string: string, format: format) else {
+            return nil
         }
-        return df.string(from: date!)
+        return getFormatterFrom(format: "dd.MM.yyyy").string(from: date)
     }
     
-    private static func getFormatter(_ format: String) -> DateFormatter {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = format
-        return dateFormatter
+    public static func getDateFrom(string: String, format: String) -> Date? {
+        let df = getFormatterFrom(format: format)
+        return df.date(from: string)
+    }
+    
+    private static func getFormatterFrom(format: String) -> DateFormatter {
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "en_US_POSIX")
+        df.dateFormat = format
+        return df
+    }
+    
+}
+
+// MARK: - Extension
+
+extension LocalizedStringKey {
+    
+    var stringKey: String? {
+        Mirror(reflecting: self).children.first(where: {
+            $0.label == "key"
+        })?.value as? String
+    }
+}
+
+extension String {
+    var doubleValue: Double {
+        return (self as NSString).doubleValue
+    }
+}
+
+extension LocalizedStringKey {
+    func stringValue(locale: Locale = .current) -> String {
+        return .localizedString(for: self.stringKey!, locale: locale)
+    }
+}
+
+extension String {
+    static func localizedString(for key: String, locale: Locale = .current) -> String {
+        let language = locale.languageCode
+        let path = Bundle.main.path(forResource: language, ofType: "lproj")!
+        let bundle = Bundle(path: path)!
+        let localizedString = NSLocalizedString(key, bundle: bundle, comment: "")
+        return localizedString
     }
 }

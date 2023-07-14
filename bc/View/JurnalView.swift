@@ -17,7 +17,7 @@ struct JurnalView: View {
                 Text(model.error!.localizedDescription).foregroundColor(.primary)
             } else if model != nil {
                 if model.model!.isEmpty {
-                    Text("Нет данных").foregroundColor(.primary)
+                    Text("noData").foregroundColor(.primary)
                 } else {
                     List(model.model!) { data in
                         JurnalItem(data: data)

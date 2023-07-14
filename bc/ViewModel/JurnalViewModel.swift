@@ -15,7 +15,7 @@ public class JurnalViewModel: ObservableObject, BaseViewModel {
     
     
     init() {
-        let rx = DataHelper.share().rxData
+        let rx = EHDataHelper.share().rxData
         rx?.subscribe(onNext: { [self] data in
             self.subscribe(data, error: nil)
         }, onError: { [self] error in
@@ -35,6 +35,7 @@ public class JurnalViewModel: ObservableObject, BaseViewModel {
     
     public func updateData() {
         model = nil
+        EHDataHelper.share().updateData()
         reloadView()
     }
     

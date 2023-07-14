@@ -65,7 +65,7 @@ struct LoginView: View {
     }
     
     func loggin() {
-        DataHelper.share().onLoggin(email, pass: pass) { error in
+        EHDataHelper.share().onLoggin(email, pass: pass) { error in
             if error == nil {
                 path = []
                 return
@@ -76,8 +76,8 @@ struct LoginView: View {
     }
     
     func getVersion() -> String {
-        let version = LocalizedStringKey("Version")
-        return String(format: "%@: %@", version.stringKey ?? "-", Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-")
+        let version = LocalizedStringKey("Version").stringValue()
+        return String(format: "%@: %@", version, Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-")
     }
     
 }

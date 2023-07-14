@@ -5,3 +5,53 @@
   Created by Evgeny Hailov on 10.07.2023.
   
 */
+
+"Hello" = "Hello";
+
+"Enter your email" = "Enter your email";
+"Enter your password" = "Enter your password";
+"Error" = "Bc error";
+"Invalid password or email" = "Invalid password or email!";
+"Version" = "Version";
+"Enter" = "Enter";
+
+"Finance" = "Finance";
+"Profile" = "Profile";
+"Journal" = "Journal";
+"Files" = "Files";
+
+"firstName" = "First name:";
+"lastName" = "Last name:";
+"email" = "Email:";
+
+"exit" = "Exit";
+
+"noData" = "No data available";
+
+"staffStructure" = "Staff structure:";
+"objects" = "Objects:";
+"agreements" = "Agreements:";
+"counterparties" = "Counterparties:";
+
+"name" = "Name:";
+"fullName" = "Full name:";
+"passport" = "Passport:";
+"number" = "Number:";
+
+"direction" = "Direction:";
+"typeOfWork" = "Type of work:";
+"anObject" = "Object:";
+"counterparty" = "Counterparty:";
+"contractNumber" = "Contract number:";
+"theAmount" = "The amount:";
+"cash" = "Cash:";
+
+"article" = "Article:";
+"searchForCompletedDeals" = "Search for completed deals";
+"save" = "Save";
+
+"from" = "From:";
+"before" = "Before:";
+"cash" = "Cash:";
+"calculate" = "Calculate";
+"close" = "Close";

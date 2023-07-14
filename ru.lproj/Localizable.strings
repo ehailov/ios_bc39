@@ -5,3 +5,53 @@
   Created by Evgeny Hailov on 10.07.2023.
   
 */
+
+"Hello" = "Привет";
+
+"Enter your email" = "Введите ваш эл. почту";
+"Enter your password" = "Введите ваш пароль";
+"Error" = "Bc ошибка";
+"Invalid password or email" = "Неверный пароль или email!";
+"Version" = "Версия";
+"Enter" = "Войти";
+
+"Finance" = "Финансы";
+"Profile" = "Профиль";
+"Journal" = "Журнал";
+"Files" = "Файлы";
+
+"firstName" = "Имя:";
+"lastName" = "Фамилия:";
+"email" = "Эл. почта:";
+
+"exit" = "Выйти";
+
+"noData" = "Нет данных";
+
+"staffStructure" = "Штатная структура:";
+"objects" = "Объекты:";
+"agreements" = "Договора:";
+"counterparties" = "Контрагенты:";
+
+"name" = "Наименование:";
+"fullName" = "Полное имя:";
+"passport" = "Паспорт:";
+"number" = "Номер:";
+
+"direction" = "Направление:";
+"typeOfWork" = "Вид работ:";
+"anObject" = "Объект:";
+"counterparty" = "Контрагент:";
+"contractNumber" = "Номер договора:";
+"theAmount" = "Сумма:";
+"cash" = "Касса:";
+
+"article" = "Статья:";
+"searchForCompletedDeals" = "Поиск завершенных сделок";
+"save" = "Сохранить";
+
+"from" = "От:";
+"before" = "До:";
+"cash" = "Касса:";
+"calculate" = "Рассчитать";
+"close" = "Закрыть";

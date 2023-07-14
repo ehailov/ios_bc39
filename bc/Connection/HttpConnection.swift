@@ -14,7 +14,6 @@ public class HttpConnection {
     
     public func execute(_ address: String, parameters: [String: String]?, method: String, result: @escaping HttpConnectionResult) {
         var af: DataRequest
-        
         if method == "GET" {
             let address = String(format: "%@%@", address, getStringParameters(parameters))
             af = AF.request(address, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: getHTTPHeaders())
@@ -23,8 +22,38 @@ public class HttpConnection {
         } else {
             return
         }
-        
         af.validate(contentType: ["text/html", "application/json", "application/octet-stream"])
+        af.response { [self] data in
+            if data.error != nil {
+                result(nil, getError(data.error!.errorDescription))
+                return
+            }
+            let statusCode = data.response?.statusCode
+            if statusCode == 200 {
+                result(parceJson(data.data!), nil)
+            } else {
+                result(nil, getError("statusCode != 200"))
+            }
+        }
+    }
+    
+    public func upload(_ address: String, parameters: [String: Any], result: @escaping HttpConnectionResult) {
+        let af = AF.upload(multipartFormData: {
+            for parameter in parameters {
+                let type = type(of: parameter.value)
+                if type == Data.self {
+                    $0.append(parameter.value as! Data, withName: "file", fileName: "image.png", mimeType: "text/plain")
+                } else if type == String.self {
+                    let data = parameter.value as! String
+                    $0.append(data.data(using: .utf8)!, withName: parameter.key)
+                } else {
+                    continue
+                }
+                
+            }
+            
+        }, to: address, method: .post, headers: getHTTPHeaders())
+        
         af.response { [self] data in
             if data.error != nil {
                 result(nil, getError(data.error!.errorDescription))
@@ -68,9 +97,19 @@ public class HttpConnection {
         do {
             return try JSONSerialization.jsonObject(with: data)
         } catch {
-            print("Model is error: ", (error))
+            EHLogger.verbose("Model is error", (error) as NSError)
             return nil
         }
+    }
+    
+    private func getDataFor(url: URL) -> Data? {
+        var data: Data? = nil
+        do {
+            data = try Data(contentsOf: url)
+        } catch {
+            EHLogger.verbose("-", (error) as NSError)
+        }
+        return data
     }
     
 }

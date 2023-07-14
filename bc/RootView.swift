@@ -7,100 +7,137 @@
 
 import SwiftUI
 
+let finance = "Finance"
+let journal = "Journal"
+let files = "Files"
+let profile = "Profile"
+
 struct NavigationView: View {
     
     @State private var path: [Int]
     @State private var title: String = ""
+    @State private var selected: Int = 0
     
     var body: some View {
         NavigationStack(path: $path) {
-            RootView(path: $path, title: $title)
-                .navigationTitle($title)
-                .navigationDestination(for: Int.self) { _ in
-                    LoginView(path: $path)
+            RootView(path: $path, title: $title, selected: $selected)
+                .navigationDestination(for: Int.self) { id in
+                    switch id {
+                    case 2:
+                        AddFinanceView(path: $path)
+                    case 3:
+                        CashView()
+                    case 4:
+                        AddJurnalView()
+                    case 5:
+                        AddFileView()
+                    case 6:
+                        SettingView()
+                    default:
+                        LoginView(path: $path)
+                    }
+                }
+                .navigationTitle(LocalizedStringKey(title))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Image("Logo2")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 80, height: 18, alignment: .leading)
+                    }
+                    if title != profile {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                if title == finance {
+                                    path = [2]
+                                } else if title == journal {
+                                    path = [4]
+                                } else if title == files {
+                                    path = [5]
+                                }
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                            }
+                        }
+                    }
+                    if title == finance {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                path = [3]
+                            } label: {
+                                Image(systemName: "dollarsign.circle.fill")
+                            }
+                        }
+                    }
+                    if title == profile {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                path = [6]
+                            } label: {
+                                Image(systemName: "slider.horizontal.3")
+                            }
+                        }
+                    }
                 }
         }
     }
     
     init() {
-        if !DataHelper.share().isLogin() {
+        if !EHDataHelper.share().isLogin() {
             path = [1]
         } else {
             path = []
+            EHDataHelper.share().getData()
         }
     }
-    
 }
 
 struct RootView: View {
     
     @Binding var path: [Int]
     @Binding var title: String
+    @Binding var selected: Int
     
     var body: some View {
-        TabView {
-            NavigationStack(path: $path) {
-                FinanseView()
-                    .navigationDestination(for: Int.self) { _ in
-                        LoginView(path: $path)
-                    }
+        TabView(selection: $selected) {
+            FinanseView()
+                .tabItem() {
+                    Image(systemName: "bitcoinsign")
+                    Text(LocalizedStringKey(finance))
+                }
+                .tag(0)
+                .onAppear() {
+                    title = finance
+                }
+            JurnalView()
+                .tabItem() {
+                    Image(systemName: "list.bullet.clipboard")
+                    Text(LocalizedStringKey(journal))
+                }
+                .tag(1)
+                .onAppear() {
+                    title = journal
+                }
+            FileView()
+                .tabItem() {
+                    Image(systemName: "folder")
+                    Text(LocalizedStringKey(files))
+                }
+                .tag(2)
+                .onAppear() {
+                    title = files
             }
-            .onAppear() {
-                title = "Финансы"
-            }
-            .tabItem() {
-                Image(systemName: "bitcoinsign")
-                Text("Финансы")
-            }
-            
-            NavigationStack(path: $path) {
-                JurnalView()
-                    .navigationDestination(for: Int.self) { _ in
-                        LoginView(path: $path)
-                    }
-            }
-            .onAppear() {
-                title = "Журнал"
-            }
-            .tabItem() {
-                Image(systemName: "list.bullet.clipboard")
-                Text("Журнал")
-            }
-            
-            NavigationStack(path: $path) {
-                FileView()
-                    .navigationDestination(for: Int.self) { _ in
-                        LoginView(path: $path)
-                    }
-            }
-            .onAppear() {
-                title = "Файлы"
-            }
-            .tabItem() {
-                Image(systemName: "folder")
-                Text("Файлы")
-            }
-            
-            NavigationStack(path: $path) {
-                ProfileVIew(path: $path)
-                    .navigationDestination(for: Int.self) { _ in
-                        LoginView(path: $path)
-                    }
-            }
-            .onAppear() {
-                title = "Профиль"
-            }
-            .tabItem() {
-                Image(systemName: "person")
-                Text("Профиль")
-            }
-        }.onAppear() {
-            DataHelper.share().getData()
+            ProfileVIew(path: $path)
+                .tabItem() {
+                    Image(systemName: "person")
+                    Text(LocalizedStringKey(profile))
+                }
+                .tag(3)
+                .onAppear() {
+                    title = profile
+                }
         }
     }
-    
 }
 
-//#Preview {
-//   MainView(model: model)
-//}
