@@ -40,6 +40,9 @@
 		464DFC9D2A52F38A00042692 /* ObjModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC9C2A52F38A00042692 /* ObjModel.swift */; };
 		464DFC9F2A52F3A800042692 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC9E2A52F3A800042692 /* UserModel.swift */; };
 		464DFCA12A5304E500042692 /* FileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFCA02A5304E500042692 /* FileViewModel.swift */; };
+		4650E1332A668D8D0000EBD1 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4650E1322A668D8D0000EBD1 /* ImageModel.swift */; };
+		4652EC942A6528340086173F /* ImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652EC932A6528340086173F /* ImagesView.swift */; };
+		4652EC962A654E320086173F /* ImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652EC952A654E320086173F /* ImagesViewModel.swift */; };
 		46985D0E2A5FED6D004635AE /* CashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46985D0D2A5FED6D004635AE /* CashViewModel.swift */; };
 		46D3D0D22A5EDC4500FA96F5 /* EHLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3D0D12A5EDC4500FA96F5 /* EHLogger.swift */; };
 		46D3D0D42A5EFC1000FA96F5 /* CashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3D0D32A5EFC1000FA96F5 /* CashView.swift */; };
@@ -86,6 +89,9 @@
 		464DFC9C2A52F38A00042692 /* ObjModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjModel.swift; path = Models/ObjModel.swift; sourceTree = "<group>"; };
 		464DFC9E2A52F3A800042692 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserModel.swift; path = Models/UserModel.swift; sourceTree = "<group>"; };
 		464DFCA02A5304E500042692 /* FileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewModel.swift; sourceTree = "<group>"; };
+		4650E1322A668D8D0000EBD1 /* ImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageModel.swift; path = Models/ImageModel.swift; sourceTree = "<group>"; };
+		4652EC932A6528340086173F /* ImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImagesView.swift; path = View/ImagesView.swift; sourceTree = "<group>"; };
+		4652EC952A654E320086173F /* ImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewModel.swift; sourceTree = "<group>"; };
 		46985D0D2A5FED6D004635AE /* CashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashViewModel.swift; sourceTree = "<group>"; };
 		46D3D0D12A5EDC4500FA96F5 /* EHLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHLogger.swift; sourceTree = "<group>"; };
 		46D3D0D32A5EFC1000FA96F5 /* CashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CashView.swift; path = View/CashView.swift; sourceTree = "<group>"; };
@@ -133,9 +139,9 @@
 		4608EE042A4B39C5008E814E /* bc */ = {
 			isa = PBXGroup;
 			children = (
+				464DFC812A52C50B00042692 /* Api */,
 				4609309A2A4D79AA00195025 /* View */,
 				463BCF712A4EC7AE00AAD4C5 /* ViewModel */,
-				464DFC812A52C50B00042692 /* Api */,
 				464DFC822A52C57E00042692 /* Models */,
 				46370A5D2A56E7CC002B94FA /* Utils */,
 				464DFC802A52C4AC00042692 /* Connection */,
@@ -160,6 +166,7 @@
 				46F725FD2A6170DC00127295 /* AddFileView.swift */,
 				46F726012A61716400127295 /* SettingView.swift */,
 				462015B62A5EA87300818E23 /* LoginView.swift */,
+				4652EC932A6528340086173F /* ImagesView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -185,6 +192,7 @@
 				46370A5E2A5711FC002B94FA /* BaseViewModel.swift */,
 				462015BF2A5ECEBC00818E23 /* AddFinanceViewModel.swift */,
 				46985D0D2A5FED6D004635AE /* CashViewModel.swift */,
+				4652EC952A654E320086173F /* ImagesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -210,6 +218,7 @@
 		464DFC822A52C57E00042692 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4650E1322A668D8D0000EBD1 /* ImageModel.swift */,
 				462015B82A5EA88C00818E23 /* PickerModel.swift */,
 				464DFC8B2A52D23600042692 /* JurnalModel.swift */,
 				464DFC872A52C64F00042692 /* DataModel.swift */,
@@ -360,6 +369,7 @@
 				464DFC8E2A52D6BD00042692 /* EHAuthHelper.swift in Sources */,
 				464DFC882A52C64F00042692 /* DataModel.swift in Sources */,
 				463BCF7B2A4EC8B900AAD4C5 /* FinanseViewModel.swift in Sources */,
+				4652EC962A654E320086173F /* ImagesViewModel.swift in Sources */,
 				462015B92A5EA88C00818E23 /* PickerModel.swift in Sources */,
 				464DFC9D2A52F38A00042692 /* ObjModel.swift in Sources */,
 				463BCF6D2A4EC65600AAD4C5 /* FinanseModel.swift in Sources */,
@@ -371,8 +381,10 @@
 				46985D0E2A5FED6D004635AE /* CashViewModel.swift in Sources */,
 				462015B72A5EA87300818E23 /* LoginView.swift in Sources */,
 				464DFC922A52E54E00042692 /* FileModel.swift in Sources */,
+				4652EC942A6528340086173F /* ImagesView.swift in Sources */,
 				46D3D0D42A5EFC1000FA96F5 /* CashView.swift in Sources */,
 				4608EE062A4B39C5008E814E /* bcApp.swift in Sources */,
+				4650E1332A668D8D0000EBD1 /* ImageModel.swift in Sources */,
 				464DFC842A52C5BC00042692 /* AuthModel.swift in Sources */,
 				462015B52A5EA86800818E23 /* AddFinanceView.swift in Sources */,
 				464DFC902A52DC4700042692 /* JurnalViewModel.swift in Sources */,

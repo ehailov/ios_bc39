@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct JurnalModel: Identifiable {
+public struct JurnalModel: Identifiable, ImageModel {
     
     public var id: Int
     public var work: String
@@ -51,4 +51,40 @@ public struct JurnalModel: Identifiable {
         }
         return Utils.dateFrom(string: string!, format: "yyyy-MM-dd") ?? "-"
     }
+    
+    public func getImages() -> [String] {
+        var images: [String] = []
+        if !file0.isEmpty {
+            images.append(file0)
+        }
+        if !file1.isEmpty {
+            images.append(file1)
+        }
+        if !file2.isEmpty {
+            images.append(file2)
+        }
+        if !file3.isEmpty {
+            images.append(file3)
+        }
+        if !file4.isEmpty {
+            images.append(file4)
+        }
+        if !file5.isEmpty {
+            images.append(file5)
+        }
+        if !file6.isEmpty {
+            images.append(file6)
+        }
+        if !file7.isEmpty {
+            images.append(file7)
+        }
+        if !file8.isEmpty {
+            images.append(file8)
+        }
+        if !file9.isEmpty {
+            images.append(file9)
+        }
+        return images
+    }
+   
 }
