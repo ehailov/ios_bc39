@@ -6,3 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
+
+public class ImagesViewModel: ObservableObject {
+    
+    @Published public var images: [String]
+    
+    init(model: ImageModel) {
+        self.images = model.getImages()
+    }
+    
+}

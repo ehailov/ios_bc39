@@ -8,11 +8,58 @@
 import SwiftUI
 
 struct ImagesView: View {
+    
+    @ObservedObject var model: ImagesViewModel
+    @Binding var isPresented: Bool
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Color.black.overlay {
+            VStack {
+                ButtonView(isPresented: $isPresented)
+                GeometryReader { gp in
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(0 ..< model.images.count) { id in
+                                AsyncImage(url: URL(string: String(format: "http://bc-24.ru/media/%@", model.images[id]))) {
+                                    $0.resizable()
+                                        .scaledToFit()
+                                } placeholder: {
+                                    ProgressView()
+                                        .tint(.white)
+                                }
+                                .frame(width: gp.size.width, height: gp.size.height)
+                            }
+                        }
+                    }
+                    .scrollIndicators(.hidden)
+                }
+            }
+        }
+        .ignoresSafeArea(.all)
+    }
+    
+    init(_ model: ImageModel, isPresented: Binding<Bool>) {
+        self.model = ImagesViewModel(model: model)
+        _isPresented = isPresented
     }
 }
 
-#Preview {
-    ImagesView()
+struct ButtonView: View {
+    
+    @Binding var isPresented: Bool
+    
+    var body: some View {
+        HStack {
+            Button {
+                isPresented.toggle()
+            } label: {
+                Text("close")
+            }
+            .padding(.leading)
+            .padding(.top)
+            Spacer()
+        }
+    }
+    
 }
+    

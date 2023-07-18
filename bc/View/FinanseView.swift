@@ -38,16 +38,21 @@ struct FinanseView: View {
     
 struct FinanseItem: View {
     
+    @State var isSheet: Bool = false
     var data: FinanseModel
     
     var body: some View {
         HStack() {
             VStack(alignment: .leading) {
-                Image("Check").resizable()
-                    .frame(width: 90, height: 100)
-                    .overlay(RoundedRectangle(cornerRadius: 30)
-                        .stroke(lineWidth: 0)
-                        .foregroundColor(Color.black))
+                Button {
+                    isSheet.toggle()
+                } label: {
+                    Image("Check").resizable()
+                        .frame(width: 90, height: 100)
+                        .overlay(RoundedRectangle(cornerRadius: 30)
+                            .stroke(lineWidth: 0)
+                            .foregroundColor(Color.black))
+                }
                 Text(data.date).font(.system(size: 12)).padding(.top).foregroundColor(Color.white)
             }
             Spacer()
@@ -67,6 +72,9 @@ struct FinanseItem: View {
                 LabeledContent("cash", value: data.kassa)
                     .font(.system(size: 12)).foregroundColor(Color.white)
             }
+        }
+        .sheet(isPresented: $isSheet) {
+            ImagesView(data, isPresented: $isSheet)
         }
     }
     

@@ -9,8 +9,6 @@ import Foundation
 
 public protocol ImageModel {
     
-    func getImagesFromJurnal() -> [String]
+    func getImages() -> [String]
     
-    func getImageModelForFinace() -> [String]
-        
 }

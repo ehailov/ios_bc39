@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct FinanseModel: Identifiable {
+public struct FinanseModel: Identifiable, ImageModel {
+    
     public var id: Int
     public var accoun: String
     public var article: String
@@ -45,6 +46,10 @@ public struct FinanseModel: Identifiable {
             return "-"
         }
         return Utils.dateFrom(string: string!, format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?? "-"
+    }
+    
+    public func getImages() -> [String] {
+        return [self.image]
     }
     
 }
