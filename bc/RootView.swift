@@ -140,4 +140,3 @@ struct RootView: View {
         }
     }
 }
-

@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 
 let url = "http://bc-24.ru/api"
+let loadImageUrl = "http://bc-24.ru/media"
+
 public typealias CashResult = ([String: Any]?, NSError?) -> ()
 public typealias SaveResult = ([String: String]?, NSError?) -> ()
 public typealias LogginResult = (NSError?) -> ()

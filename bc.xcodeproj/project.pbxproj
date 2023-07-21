@@ -44,6 +44,7 @@
 		4652EC942A6528340086173F /* ImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652EC932A6528340086173F /* ImagesView.swift */; };
 		4652EC962A654E320086173F /* ImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652EC952A654E320086173F /* ImagesViewModel.swift */; };
 		46985D0E2A5FED6D004635AE /* CashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46985D0D2A5FED6D004635AE /* CashViewModel.swift */; };
+		46A21ECC2A66DB5B00424E1F /* SharedSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A21ECB2A66DB5B00424E1F /* SharedSheetView.swift */; };
 		46D3D0D22A5EDC4500FA96F5 /* EHLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3D0D12A5EDC4500FA96F5 /* EHLogger.swift */; };
 		46D3D0D42A5EFC1000FA96F5 /* CashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3D0D32A5EFC1000FA96F5 /* CashView.swift */; };
 		46ED54832A5C423500DA0CC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 46ED54852A5C423500DA0CC2 /* Localizable.strings */; };
@@ -93,6 +94,7 @@
 		4652EC932A6528340086173F /* ImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImagesView.swift; path = View/ImagesView.swift; sourceTree = "<group>"; };
 		4652EC952A654E320086173F /* ImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewModel.swift; sourceTree = "<group>"; };
 		46985D0D2A5FED6D004635AE /* CashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashViewModel.swift; sourceTree = "<group>"; };
+		46A21ECB2A66DB5B00424E1F /* SharedSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedSheetView.swift; sourceTree = "<group>"; };
 		46D3D0D12A5EDC4500FA96F5 /* EHLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHLogger.swift; sourceTree = "<group>"; };
 		46D3D0D32A5EFC1000FA96F5 /* CashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CashView.swift; path = View/CashView.swift; sourceTree = "<group>"; };
 		46ED54842A5C423500DA0CC2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				462015BA2A5EB47E00818E23 /* PhotoView.swift */,
 				46370A5B2A56E77A002B94FA /* Buttons.swift */,
 				460305C42A5422D400C7813B /* Utils.swift */,
+				46A21ECB2A66DB5B00424E1F /* SharedSheetView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				46F726042A61717300127295 /* AddJurnalView.swift in Sources */,
 				463BCF762A4EC89500AAD4C5 /* JurnalView.swift in Sources */,
 				46370A5C2A56E77A002B94FA /* Buttons.swift in Sources */,
+				46A21ECC2A66DB5B00424E1F /* SharedSheetView.swift in Sources */,
 				464DFC992A52EF4F00042692 /* NumModel.swift in Sources */,
 				463BCF792A4EC89500AAD4C5 /* FinanseView.swift in Sources */,
 				464DFC8E2A52D6BD00042692 /* EHAuthHelper.swift in Sources */,
@@ -543,6 +547,7 @@
 				INFOPLIST_FILE = bc/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"Сamera access for bc\"";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = allow;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -580,6 +585,7 @@
 				INFOPLIST_FILE = bc/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"Сamera access for bc\"";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = allow;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

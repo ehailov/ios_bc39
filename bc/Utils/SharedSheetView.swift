@@ -5,4 +5,17 @@
 //  Created by Evgeny Hailov on 18.07.2023.
 //
 
-import Foundation
+import SwiftUI
+
+struct SharedSheet: UIViewControllerRepresentable {
+    
+    var items: [Any]
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+    
+}
