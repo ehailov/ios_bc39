@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
  
-struct CameraView: View {
+struct EHCameraView: View {
     
     @Binding var image: UIImage?
     @State var didTapCapture: Bool = false
@@ -16,8 +16,14 @@ struct CameraView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             CustomCameraRepresentable(image: self.$image, didTapCapture: $didTapCapture)
-            CaptureButtonView().onTapGesture {
-                self.didTapCapture = true
+            Button {
+                didTapCapture.toggle()
+            } label: {
+                Image(systemName: "camera").font(.largeTitle)
+                    .padding(20)
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .clipShape(Circle())
             }
         }
     }
@@ -144,29 +150,5 @@ class CustomCameraController: UIViewController {
     
     func startRunningCaptureSession(){
         captureSession.startRunning()
-    }
-}
-
-struct CaptureButtonView: View {
-    
-    @State private var animationAmount: CGFloat = 1
-    
-    var body: some View {
-        Image(systemName: "video").font(.largeTitle)
-            .padding(30)
-            .background(Color.red)
-            .foregroundColor(.white)
-            .clipShape(Circle())
-            .overlay(
-                Circle()
-                    .stroke(Color.red)
-                    .scaleEffect(animationAmount)
-                    .opacity(Double(2 - animationAmount))
-                    .animation(Animation.easeOut(duration: 1)
-                        .repeatForever(autoreverses: false))
-        )
-            .onAppear {
-                self.animationAmount = 2
-        }
     }
 }

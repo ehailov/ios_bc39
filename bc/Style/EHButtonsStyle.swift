@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BlueButton: ButtonStyle {
+struct EHBlueButton: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -20,7 +20,7 @@ struct BlueButton: ButtonStyle {
     
 }
 
-struct RedButton: ButtonStyle {
+struct EHRedButton: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
