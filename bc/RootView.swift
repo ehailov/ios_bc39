@@ -28,7 +28,7 @@ struct NavigationView: View {
                     case 3:
                         CashView()
                     case 4:
-                        AddJurnalView()
+                        AddJurnalView(path: $path)
                     case 5:
                         AddFileView()
                     case 6:

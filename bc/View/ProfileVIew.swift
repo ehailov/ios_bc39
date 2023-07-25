@@ -64,7 +64,7 @@ struct ProfileVIew: View {
                             path = [1]
                         }
                     }
-                    .buttonStyle(RedButton())
+                    .buttonStyle(EHRedButton())
                 }
                 .listRowBackground(Color.clear)
                 Section() {

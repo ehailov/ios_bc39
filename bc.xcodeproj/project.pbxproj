@@ -16,10 +16,9 @@
 		462015B52A5EA86800818E23 /* AddFinanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462015B42A5EA86800818E23 /* AddFinanceView.swift */; };
 		462015B72A5EA87300818E23 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462015B62A5EA87300818E23 /* LoginView.swift */; };
 		462015B92A5EA88C00818E23 /* PickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462015B82A5EA88C00818E23 /* PickerModel.swift */; };
-		462015BB2A5EB47E00818E23 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462015BA2A5EB47E00818E23 /* PhotoView.swift */; };
-		462015BD2A5EB48600818E23 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462015BC2A5EB48600818E23 /* CameraView.swift */; };
+		462015BD2A5EB48600818E23 /* EHCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462015BC2A5EB48600818E23 /* EHCameraView.swift */; };
 		462015C02A5ECEBC00818E23 /* AddFinanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462015BF2A5ECEBC00818E23 /* AddFinanceViewModel.swift */; };
-		46370A5C2A56E77A002B94FA /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46370A5B2A56E77A002B94FA /* Buttons.swift */; };
+		46370A5C2A56E77A002B94FA /* EHButtonsStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46370A5B2A56E77A002B94FA /* EHButtonsStyle.swift */; };
 		46370A5F2A5711FC002B94FA /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46370A5E2A5711FC002B94FA /* BaseViewModel.swift */; };
 		463BCF6D2A4EC65600AAD4C5 /* FinanseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF6C2A4EC65600AAD4C5 /* FinanseModel.swift */; };
 		463BCF762A4EC89500AAD4C5 /* JurnalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF722A4EC89500AAD4C5 /* JurnalView.swift */; };
@@ -43,8 +42,9 @@
 		4650E1332A668D8D0000EBD1 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4650E1322A668D8D0000EBD1 /* ImageModel.swift */; };
 		4652EC942A6528340086173F /* ImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652EC932A6528340086173F /* ImagesView.swift */; };
 		4652EC962A654E320086173F /* ImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652EC952A654E320086173F /* ImagesViewModel.swift */; };
+		467A84FD2A6ABB58001B6D87 /* AddJurnalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467A84FC2A6ABB58001B6D87 /* AddJurnalViewModel.swift */; };
 		46985D0E2A5FED6D004635AE /* CashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46985D0D2A5FED6D004635AE /* CashViewModel.swift */; };
-		46A21ECC2A66DB5B00424E1F /* SharedSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A21ECB2A66DB5B00424E1F /* SharedSheetView.swift */; };
+		46A21ECC2A66DB5B00424E1F /* EHSharedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A21ECB2A66DB5B00424E1F /* EHSharedSheet.swift */; };
 		46D3D0D22A5EDC4500FA96F5 /* EHLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3D0D12A5EDC4500FA96F5 /* EHLogger.swift */; };
 		46D3D0D42A5EFC1000FA96F5 /* CashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3D0D32A5EFC1000FA96F5 /* CashView.swift */; };
 		46ED54832A5C423500DA0CC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 46ED54852A5C423500DA0CC2 /* Localizable.strings */; };
@@ -65,10 +65,9 @@
 		462015B42A5EA86800818E23 /* AddFinanceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFinanceView.swift; path = View/AddFinanceView.swift; sourceTree = "<group>"; };
 		462015B62A5EA87300818E23 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = View/LoginView.swift; sourceTree = "<group>"; };
 		462015B82A5EA88C00818E23 /* PickerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PickerModel.swift; path = Models/PickerModel.swift; sourceTree = "<group>"; };
-		462015BA2A5EB47E00818E23 /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
-		462015BC2A5EB48600818E23 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		462015BC2A5EB48600818E23 /* EHCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EHCameraView.swift; sourceTree = "<group>"; };
 		462015BF2A5ECEBC00818E23 /* AddFinanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFinanceViewModel.swift; sourceTree = "<group>"; };
-		46370A5B2A56E77A002B94FA /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		46370A5B2A56E77A002B94FA /* EHButtonsStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHButtonsStyle.swift; sourceTree = "<group>"; };
 		46370A5E2A5711FC002B94FA /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		463BCF6C2A4EC65600AAD4C5 /* FinanseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinanseModel.swift; path = Models/FinanseModel.swift; sourceTree = "<group>"; };
 		463BCF722A4EC89500AAD4C5 /* JurnalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JurnalView.swift; path = View/JurnalView.swift; sourceTree = "<group>"; };
@@ -93,8 +92,9 @@
 		4650E1322A668D8D0000EBD1 /* ImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageModel.swift; path = Models/ImageModel.swift; sourceTree = "<group>"; };
 		4652EC932A6528340086173F /* ImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImagesView.swift; path = View/ImagesView.swift; sourceTree = "<group>"; };
 		4652EC952A654E320086173F /* ImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewModel.swift; sourceTree = "<group>"; };
+		467A84FC2A6ABB58001B6D87 /* AddJurnalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJurnalViewModel.swift; sourceTree = "<group>"; };
 		46985D0D2A5FED6D004635AE /* CashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashViewModel.swift; sourceTree = "<group>"; };
-		46A21ECB2A66DB5B00424E1F /* SharedSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedSheetView.swift; sourceTree = "<group>"; };
+		46A21ECB2A66DB5B00424E1F /* EHSharedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHSharedSheet.swift; sourceTree = "<group>"; };
 		46D3D0D12A5EDC4500FA96F5 /* EHLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHLogger.swift; sourceTree = "<group>"; };
 		46D3D0D32A5EFC1000FA96F5 /* CashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CashView.swift; path = View/CashView.swift; sourceTree = "<group>"; };
 		46ED54842A5C423500DA0CC2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -141,9 +141,11 @@
 		4608EE042A4B39C5008E814E /* bc */ = {
 			isa = PBXGroup;
 			children = (
-				464DFC812A52C50B00042692 /* Api */,
+				46A9EA852A6EB34600CE2FBB /* InternalView */,
 				4609309A2A4D79AA00195025 /* View */,
 				463BCF712A4EC7AE00AAD4C5 /* ViewModel */,
+				46A9EA842A6E8E7800CE2FBB /* Style */,
+				464DFC812A52C50B00042692 /* Api */,
 				464DFC822A52C57E00042692 /* Models */,
 				46370A5D2A56E7CC002B94FA /* Utils */,
 				464DFC802A52C4AC00042692 /* Connection */,
@@ -163,12 +165,12 @@
 				463BCF732A4EC89500AAD4C5 /* FileView.swift */,
 				463BCF742A4EC89500AAD4C5 /* ProfileVIew.swift */,
 				46D3D0D32A5EFC1000FA96F5 /* CashView.swift */,
-				462015B42A5EA86800818E23 /* AddFinanceView.swift */,
-				46F726032A61717200127295 /* AddJurnalView.swift */,
-				46F725FD2A6170DC00127295 /* AddFileView.swift */,
 				46F726012A61716400127295 /* SettingView.swift */,
 				462015B62A5EA87300818E23 /* LoginView.swift */,
 				4652EC932A6528340086173F /* ImagesView.swift */,
+				462015B42A5EA86800818E23 /* AddFinanceView.swift */,
+				46F726032A61717200127295 /* AddJurnalView.swift */,
+				46F725FD2A6170DC00127295 /* AddFileView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -176,11 +178,7 @@
 		46370A5D2A56E7CC002B94FA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				462015BC2A5EB48600818E23 /* CameraView.swift */,
-				462015BA2A5EB47E00818E23 /* PhotoView.swift */,
-				46370A5B2A56E77A002B94FA /* Buttons.swift */,
 				460305C42A5422D400C7813B /* Utils.swift */,
-				46A21ECB2A66DB5B00424E1F /* SharedSheetView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -193,9 +191,10 @@
 				464DFCA02A5304E500042692 /* FileViewModel.swift */,
 				460305C62A542EC300C7813B /* ProfileVIewModel.swift */,
 				46370A5E2A5711FC002B94FA /* BaseViewModel.swift */,
-				462015BF2A5ECEBC00818E23 /* AddFinanceViewModel.swift */,
-				46985D0D2A5FED6D004635AE /* CashViewModel.swift */,
 				4652EC952A654E320086173F /* ImagesViewModel.swift */,
+				46985D0D2A5FED6D004635AE /* CashViewModel.swift */,
+				462015BF2A5ECEBC00818E23 /* AddFinanceViewModel.swift */,
+				467A84FC2A6ABB58001B6D87 /* AddJurnalViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -235,6 +234,23 @@
 				464DFC9E2A52F3A800042692 /* UserModel.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		46A9EA842A6E8E7800CE2FBB /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				46370A5B2A56E77A002B94FA /* EHButtonsStyle.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
+		46A9EA852A6EB34600CE2FBB /* InternalView */ = {
+			isa = PBXGroup;
+			children = (
+				462015BC2A5EB48600818E23 /* EHCameraView.swift */,
+				46A21ECB2A66DB5B00424E1F /* EHSharedSheet.swift */,
+			);
+			path = InternalView;
 			sourceTree = "<group>";
 		};
 		B6393F8B5C57E7B6DC62875A /* Frameworks */ = {
@@ -359,16 +375,16 @@
 				46F725FE2A6170DC00127295 /* AddFileView.swift in Sources */,
 				464DFC9F2A52F3A800042692 /* UserModel.swift in Sources */,
 				46F726022A61716400127295 /* SettingView.swift in Sources */,
-				462015BB2A5EB47E00818E23 /* PhotoView.swift in Sources */,
 				463BCF782A4EC89500AAD4C5 /* ProfileVIew.swift in Sources */,
 				463BCF772A4EC89500AAD4C5 /* FileView.swift in Sources */,
 				46370A5F2A5711FC002B94FA /* BaseViewModel.swift in Sources */,
-				462015BD2A5EB48600818E23 /* CameraView.swift in Sources */,
+				462015BD2A5EB48600818E23 /* EHCameraView.swift in Sources */,
 				46F726042A61717300127295 /* AddJurnalView.swift in Sources */,
 				463BCF762A4EC89500AAD4C5 /* JurnalView.swift in Sources */,
-				46370A5C2A56E77A002B94FA /* Buttons.swift in Sources */,
-				46A21ECC2A66DB5B00424E1F /* SharedSheetView.swift in Sources */,
+				46370A5C2A56E77A002B94FA /* EHButtonsStyle.swift in Sources */,
+				46A21ECC2A66DB5B00424E1F /* EHSharedSheet.swift in Sources */,
 				464DFC992A52EF4F00042692 /* NumModel.swift in Sources */,
+				467A84FD2A6ABB58001B6D87 /* AddJurnalViewModel.swift in Sources */,
 				463BCF792A4EC89500AAD4C5 /* FinanseView.swift in Sources */,
 				464DFC8E2A52D6BD00042692 /* EHAuthHelper.swift in Sources */,
 				464DFC882A52C64F00042692 /* DataModel.swift in Sources */,

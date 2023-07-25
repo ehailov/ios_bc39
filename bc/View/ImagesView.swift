@@ -25,7 +25,7 @@ struct ImagesView: View {
                 .frame(width: gp.size.width, height: gp.size.height)
             }
             .sheet(isPresented: $model.isSharedSheet) {
-                    SharedSheet(items: model.sharedImages)
+                    EHSharedSheet(items: model.sharedImages)
                 }
             }
         }

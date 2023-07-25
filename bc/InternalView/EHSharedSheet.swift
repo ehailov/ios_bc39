@@ -1,5 +1,5 @@
 //
-//  SharedSheetView.swift
+//  EHSharedSheet.swift
 //  bc
 //
 //  Created by Evgeny Hailov on 18.07.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SharedSheet: UIViewControllerRepresentable {
+struct EHSharedSheet: UIViewControllerRepresentable {
     
     var items: [Any]
     

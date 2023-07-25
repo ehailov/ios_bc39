@@ -46,7 +46,7 @@ struct LoginView: View {
                             showProgressView.toggle()
                             loggin()
                         }
-                        .buttonStyle(BlueButton())
+                        .buttonStyle(EHBlueButton())
                         .padding(.all)
                         .alert(isPresented: $isAlert) {
                             Alert(title: Text("Error"), message: Text("Invalid password or email"))

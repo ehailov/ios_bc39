@@ -292,4 +292,15 @@ final public class EHDataHelper {
         }
     }
     
+    //MARK: - Save jurnal
+    public func setJurnal(parameters: [String : Any], result: @escaping SaveResult) {
+        let address = String(format: "%@/jurnal/save/", url)
+        var parameters = parameters
+        parameters["sid"] = auth.sid
+        httpConnection.upload(address, parameters: parameters) { data, error in
+            let data = data as? [String: String] ?? nil
+            result(data, error)
+        }
+    }
+    
 }

@@ -13,7 +13,6 @@ public class JurnalViewModel: ObservableObject, BaseViewModel {
     @Published public var model: [JurnalModel]? = nil
     @Published public var error: NSError? = nil
     
-    
     init() {
         let rx = EHDataHelper.share().rxData
         rx?.subscribe(onNext: { [self] data in
@@ -37,6 +36,10 @@ public class JurnalViewModel: ObservableObject, BaseViewModel {
         model = nil
         EHDataHelper.share().updateData()
         reloadView()
+    }
+    
+    public func isNil() -> Bool {
+        return model == nil ? true : false
     }
     
 }

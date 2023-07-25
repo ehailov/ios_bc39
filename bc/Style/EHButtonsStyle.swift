@@ -1,5 +1,5 @@
 //
-//  ButtonsView.swift
+//  EHButtonsStyle.swift
 //  bc
 //
 //  Created by Evgeny Hailov on 06.07.2023.

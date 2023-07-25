@@ -38,4 +38,8 @@ public class FinanseViewModel: ObservableObject, BaseViewModel {
         reloadView()
     }
     
+    public func isNil() -> Bool {
+        return model == nil ? true : false
+    }
+    
 }

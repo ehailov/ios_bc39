@@ -15,7 +15,7 @@ struct JurnalView: View {
         ZStack {
             if model.error != nil {
                 Text(model.error!.localizedDescription).foregroundColor(.primary)
-            } else if model != nil {
+            } else if model != nil && !model.isNil() {
                 if model.model!.isEmpty {
                     Text("noData").foregroundColor(.primary)
                 } else {

@@ -25,14 +25,16 @@ public class HttpConnection {
         af.validate(contentType: ["text/html", "application/json", "application/octet-stream"])
         af.response { [self] data in
             if data.error != nil {
-                result(nil, getError(data.error!.errorDescription))
+                result(nil, getError(data.error!.errorDescription, code: 1))
                 return
             }
             let statusCode = data.response?.statusCode
             if statusCode == 200 {
                 result(parceJson(data.data!), nil)
+            } else if statusCode == 403 {
+                result(nil, getError("session expired", code: 3))
             } else {
-                result(nil, getError("statusCode != 200"))
+                result(nil, getError("cloud error", code: 1))
             }
         }
     }
@@ -42,7 +44,8 @@ public class HttpConnection {
             for parameter in parameters {
                 let type = type(of: parameter.value)
                 if type == Data.self {
-                    $0.append(parameter.value as! Data, withName: "file", fileName: "image.png", mimeType: "text/plain")
+                    let name = parameter.key
+                    $0.append(parameter.value as! Data, withName: name, fileName: "image.png", mimeType: "text/plain")
                 } else if type == String.self {
                     let data = parameter.value as! String
                     $0.append(data.data(using: .utf8)!, withName: parameter.key)
@@ -56,25 +59,25 @@ public class HttpConnection {
         
         af.response { [self] data in
             if data.error != nil {
-                result(nil, getError(data.error!.errorDescription))
+                result(nil, getError(data.error!.errorDescription, code: 1))
                 return
             }
             let statusCode = data.response?.statusCode
             if statusCode == 200 {
                 result(parceJson(data.data!), nil)
             } else {
-                result(nil, getError("statusCode != 200"))
+                result(nil, getError("statusCode != 200", code: 1))
             }
         }
     }
     
-    private func getError(_ errorDescription: String?) -> NSError {
+    private func getError(_ errorDescription: String?, code: Int) -> NSError {
         if errorDescription == nil {
-            let userInfo = [NSLocalizedDescriptionKey : "unknown error"]
-            return NSError(domain: "BC_Error", code: 1, userInfo: userInfo)
+            let userInfo = [NSLocalizedDescriptionKey: "unknown error"]
+            return NSError(domain: "BC_Error", code: code, userInfo: userInfo)
         }
-        let userInfo = [NSLocalizedDescriptionKey : errorDescription!]
-        return NSError(domain: "BC_Error", code: 1, userInfo: userInfo)
+        let userInfo = [NSLocalizedDescriptionKey: errorDescription!]
+        return NSError(domain: "BC_Error", code: code, userInfo: userInfo)
     }
     
     private func getStringParameters(_ parameters: [String: Any]?) -> String {

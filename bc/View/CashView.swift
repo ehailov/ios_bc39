@@ -65,7 +65,7 @@ struct CashView: View {
                     Text("calculate")
                 }
                 .padding(.all)
-                .buttonStyle(BlueButton())
+                .buttonStyle(EHBlueButton())
                 
             }
             .alert("BC", isPresented: $model.isAlert) {

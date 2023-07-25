@@ -16,7 +16,7 @@ struct FinanseView: View {
         ZStack {
             if model.error != nil {
                 Text(model.error!.localizedDescription).foregroundColor(.primary)
-            } else if model.model != nil {
+            } else if model.model != nil && !model.isNil() {
                 if model.model!.isEmpty {
                     Text("noData").foregroundColor(.primary)
                 } else {

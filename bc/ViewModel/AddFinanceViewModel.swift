@@ -18,9 +18,8 @@ public class AddFinanceViewModel: ObservableObject {
     @Published public var selectedObject = ""
     @Published public var selectedCounterparty = ""
     @Published public var selectedContractNumber = ""
-    @Published public var sheet1 = false
-    @Published public var sheet2 = false
-    @Published public var inputImage: UIImage? = nil
+    @Published public var sheet = false
+    @Published public var image: UIImage? = nil
     @Published public var cash: String = ""
     @Published public var direction: String = ""
     @Published public var typeOfWork: String = ""
@@ -28,8 +27,7 @@ public class AddFinanceViewModel: ObservableObject {
     @Published public var isAlert: Bool = false
     @Published public var isComplete: Bool = false
     @Published public var localizedDescription: String = ""
-    @Published public var isImage: Bool = false
-   
+    
     init() {
         self.getData()
     }
@@ -66,52 +64,60 @@ public class AddFinanceViewModel: ObservableObject {
     
     public func setFinanse(result: @escaping () -> ()) {
         self.isProgressBar.toggle()
-        var data: [String: Any] = [:]
-        data["file"] = inputImage?.pngData() ?? ""
-        data["id_article"] = selectedArticle
-        data["id_objects"] = selectedObject
-        data["id_acon"] = selectedCounterparty
-        data["number"] = selectedContractNumber
-        data["sum"] = cash
-        data["text"] = direction
-        data["type_of_work"] = typeOfWork
-        EHDataHelper.share().setFinanse(parameters: data) { data, error in
-            if error != nil {
-                EHLogger.verbose("save finanse", error)
-                self.completeFailure(localizedDescription: error!.localizedDescription)
-                return
-            }
-            if self.isComplete {
-                EHDataHelper.share().setComleted(id: data!["id"]!) { _, error in
-                    if error != nil {
-                        EHLogger.verbose("save comleted", error)
-                        self.completeFailure(localizedDescription: error!.localizedDescription)
-                        return
+        DispatchQueue.global().async {
+            var data: [String: Any] = [:]
+            data["file"] = self.image?.pngData() ?? ""
+            data["id_article"] = self.selectedArticle
+            data["id_objects"] = self.selectedObject
+            data["id_acon"] = self.selectedCounterparty
+            data["number"] = self.selectedContractNumber
+            data["sum"] = self.cash
+            data["text"] = self.direction
+            data["type_of_work"] = self.typeOfWork
+            EHDataHelper.share().setFinanse(parameters: data) { data, error in
+                if error != nil {
+                    EHLogger.verbose("save finanse", error)
+                    self.completeFailure(localizedDescription: error!.localizedDescription)
+                    return
+                }
+                if self.isComplete {
+                    EHDataHelper.share().setComleted(id: data!["id"]!) { _, error in
+                        if error != nil {
+                            EHLogger.verbose("save comleted", error)
+                            self.completeFailure(localizedDescription: error!.localizedDescription)
+                            return
+                        }
+                        result()
+                        self.completeSuccess()
                     }
+                } else {
                     result()
                     self.completeSuccess()
                 }
-            } else {
-                result()
-                self.completeSuccess()
             }
         }
     }
     
     private func completeFailure(localizedDescription: String) {
-        self.localizedDescription = localizedDescription
-        isProgressBar.toggle()
-        isAlert.toggle()
+        DispatchQueue.main.async {
+            self.localizedDescription = localizedDescription
+            self.isProgressBar.toggle()
+            self.isAlert.toggle()
+        }
     }
     
     private func completeSuccess() {
-        EHDataHelper.share().updateData()
-        isProgressBar.toggle()
-    }
-    
-    public func loadImage() {
-        if isImage == false {
-            isImage.toggle()
+        DispatchQueue.main.async {
+            EHDataHelper.share().updateData()
+            self.isProgressBar.toggle()
         }
     }
+    
+    public func capturePhotoLabrary(data: Data) {
+        guard let image = UIImage(data: data) else {
+            return
+        }
+        self.image = image
+    }
+    
 }
