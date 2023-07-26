@@ -10,7 +10,7 @@ import Alamofire
 
 public typealias HttpConnectionResult = (Any?, NSError?) -> Void
 
-public class HttpConnection {
+public class EHHttpConnection {
     
     public func execute(_ address: String, parameters: [String: String]?, method: String, result: @escaping HttpConnectionResult) {
         var af: DataRequest
@@ -100,7 +100,7 @@ public class HttpConnection {
         do {
             return try JSONSerialization.jsonObject(with: data)
         } catch {
-            EHLogger.verbose("Model is error", (error) as NSError)
+            EHLogger.verbose("Model is error", error: (error) as NSError)
             return nil
         }
     }
@@ -110,7 +110,7 @@ public class HttpConnection {
         do {
             data = try Data(contentsOf: url)
         } catch {
-            EHLogger.verbose("-", (error) as NSError)
+            EHLogger.verbose("-", error: (error) as NSError)
         }
         return data
     }

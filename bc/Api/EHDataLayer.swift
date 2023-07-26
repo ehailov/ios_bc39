@@ -10,22 +10,21 @@ import RxSwift
 
 let url = "http://bc-24.ru/api"
 let loadImageUrl = "http://bc-24.ru/media"
-
 public typealias CashResult = ([String: Any]?, NSError?) -> ()
 public typealias SaveResult = ([String: String]?, NSError?) -> ()
 public typealias LogginResult = (NSError?) -> ()
 public typealias DataResult = () -> ()
 public typealias PickerResult = (_ data: [String]?) -> ()
 
-final public class EHDataHelper {
+public class EHDataLayer {
     
-    static let data = EHDataHelper()
+    static let data = EHDataLayer()
     private var httpConnection: HttpConnection!
     private var auth: EHAuthHelper!
     public var rxData: BehaviorSubject<DataModel>!
     private var model: DataModel!
     
-    public static func share() -> EHDataHelper {
+    public static func share() -> EHDataLayer {
         return data
     }
     
@@ -40,16 +39,6 @@ final public class EHDataHelper {
         return rxData
     }
     
-    public func onNext(_ data: DataModel) {
-        rxData.onNext(data)
-    }
-    
-    public func onLogOut(result: @escaping () -> ()) {
-        model.clearAll()
-        auth.logOut()
-        result()
-    }
-    
     public func isLogin() -> Bool {
         return auth.isLoggin()
     }
@@ -57,8 +46,11 @@ final public class EHDataHelper {
     private func getUrl(_ address: String) -> String {
         return String(format: "%@/%@", url, address)
     }
+}
+
+//MARK: - Вata management
+extension EHDataLayer {
     
-    // MARK: - getData
     public func getData() {
         if auth.isLoggin() {
             DispatchQueue.global().async {
@@ -74,28 +66,16 @@ final public class EHDataHelper {
         }
     }
     
-    //MARK: - updateData
     public func updateData() {
         model.clearAll()
-        onNext(model)
+        rxData.onNext(model)
         getData()
     }
+}
+
+//MARK: - Getting data
+extension EHDataLayer {
     
-    // MARK: - onLoggin
-    public func onLoggin(_ email: String, pass: String, logginResult: @escaping LogginResult) {
-        let parameters = ["login": email, "password": pass, "device_token": "-", "fsm_token": "-"]
-        httpConnection.execute(getUrl("auth/login/"), parameters: parameters, method: "POST") { [self] result, error in
-            if error == nil {
-                let data = result as! [String: Any]
-                let model = AuthModel(root: data["root"] as! Bool, sid: data["sid"] as! String, error: data["error"] as! String, mqtt: data["mqtt"] as! Bool)
-                auth.update(model: model)
-                getData()
-            }
-            logginResult(error)
-        }
-    }
-    
-    // MARK: - Finanse
     private func getFinanse() {
         httpConnection.execute(getUrl("finanse/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
             DispatchQueue.main.async {
@@ -104,13 +84,12 @@ final public class EHDataHelper {
                     return
                 }
                 self.model.setFinanse(data: data)
-                self.onNext(self.model)
+                self.rxData.onNext(self.model)
                 EHLogger.verbose("getFinanse()", error)
             }
         }
     }
     
-    // MARK: - Jurnal
     private func getJurnal() {
         httpConnection.execute(getUrl("jurnal/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
             DispatchQueue.main.async {
@@ -119,13 +98,12 @@ final public class EHDataHelper {
                     return
                 }
                 self.model.setJurnal(data: data)
-                self.onNext(self.model)
+                self.rxData.onNext(self.model)
                 EHLogger.verbose("getJurnal()", error)
             }
         }
     }
     
-    // MARK: - File
     private func getFile() {
         httpConnection.execute(getUrl("file/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
             DispatchQueue.main.async {
@@ -134,13 +112,12 @@ final public class EHDataHelper {
                     return
                 }
                 self.model.setFile(data: data)
-                self.onNext(self.model)
+                self.rxData.onNext(self.model)
                 EHLogger.verbose("getFile()", error)
             }
         }
     }
     
-    // MARK: - Profile
     private func getProfile() {
         httpConnection.execute(getUrl("profile/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
             DispatchQueue.main.async {
@@ -149,13 +126,16 @@ final public class EHDataHelper {
                     return
                 }
                 self.model.setProfile(data: data)
-                self.onNext(self.model)
+                self.rxData.onNext(self.model)
                 EHLogger.verbose("getProfile()", error)
             }
         }
     }
+}
+
+//MARK: - References
+extension EHDataLayer {
     
-    // MARK: - Num
     private func getNum() {
         httpConnection.execute(getUrl("num/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
             DispatchQueue.main.async {
@@ -164,13 +144,12 @@ final public class EHDataHelper {
                     return
                 }
                 self.model.setNum(data: data)
-                self.onNext(self.model)
+                self.rxData.onNext(self.model)
                 EHLogger.verbose("getNum()", error)
             }
         }
     }
     
-    // MARK: - Acc
     private func getAcc() {
         httpConnection.execute(getUrl("acc/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
             DispatchQueue.main.async {
@@ -179,13 +158,12 @@ final public class EHDataHelper {
                     return
                 }
                 self.model.setAcc(data: data)
-                self.onNext(self.model)
+                self.rxData.onNext(self.model)
                 EHLogger.verbose("getAcc()", error)
             }
         }
     }
     
-    // MARK: - Obj
     private func getObj() {
         httpConnection.execute(getUrl("obj/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
             DispatchQueue.main.async {
@@ -194,13 +172,12 @@ final public class EHDataHelper {
                     return
                 }
                 self.model.setObj(data: data)
-                self.onNext(self.model)
+                self.rxData.onNext(self.model)
                 EHLogger.verbose("getObj()", error)
             }
         }
     }
     
-    // MARK: - Users
     private func getUsers() {
         let address = String(format: "%@/staff/", url)
         httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
@@ -210,13 +187,12 @@ final public class EHDataHelper {
                     return
                 }
                 self.model.setUsers(data: data)
-                self.onNext(self.model)
+                self.rxData.onNext(self.model)
                 EHLogger.verbose("getUsers()", error)
             }
         }
     }
     
-    //MARK: - Staff
     public func getArticle(result: @escaping PickerResult) {
         let address = String(format: "%@/article/", url)
         httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
@@ -228,7 +204,6 @@ final public class EHDataHelper {
         }
     }
     
-    //MARK: - Object
     public func getObject(result: @escaping PickerResult) {
         let address = String(format: "%@/objects/", url)
         httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
@@ -240,7 +215,6 @@ final public class EHDataHelper {
         }
     }
     
-    //MARK: - Counterparty
     public func getCounterparty(result: @escaping PickerResult) {
         let address = String(format: "%@/accoun/", url)
         httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
@@ -252,7 +226,6 @@ final public class EHDataHelper {
         }
     }
     
-    //MARK: - Contract number
     public func getContractNumber(result: @escaping PickerResult) {
         let address = String(format: "%@/number/", url)
         httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
@@ -264,7 +237,11 @@ final public class EHDataHelper {
         }
     }
     
-    //MARK: - Save finance
+}
+
+//MARK: - Save data
+extension EHDataLayer {
+    
     public func setFinanse(parameters: [String : Any], result: @escaping SaveResult) {
         let address = String(format: "%@/finanse/save/", url)
         var parameters = parameters
@@ -282,7 +259,6 @@ final public class EHDataHelper {
         }
     }
     
-    //MARK: - Kassa
     public func setCash(parameters: [String : String], comleted: Bool, result: @escaping CashResult) {
         let address = comleted == true ? String(format: "%@/kassa/completed/", url) : String(format: "%@/kassa/", url)
         var parameters = parameters
@@ -292,7 +268,6 @@ final public class EHDataHelper {
         }
     }
     
-    //MARK: - Save jurnal
     public func setJurnal(parameters: [String : Any], result: @escaping SaveResult) {
         let address = String(format: "%@/jurnal/save/", url)
         var parameters = parameters
@@ -303,4 +278,37 @@ final public class EHDataHelper {
         }
     }
     
+    public func setFile(parameters: [String : Any], result: @escaping SaveResult) {
+        let address = String(format: "%@/file/save/", url)
+        var parameters = parameters
+        parameters["sid"] = auth.sid
+        httpConnection.upload(address, parameters: parameters) { data, error in
+            let data = data as? [String: String] ?? nil
+            result(data, error)
+        }
+    }
+    
+}
+
+//MARK: - Registration
+extension EHDataLayer {
+    
+    public func onLoggin(_ email: String, pass: String, logginResult: @escaping LogginResult) {
+        let parameters = ["login": email, "password": pass, "device_token": "-", "fsm_token": "-"]
+        httpConnection.execute(getUrl("auth/login/"), parameters: parameters, method: "POST") { [self] result, error in
+            if error == nil {
+                let data = result as! [String: Any]
+                let model = AuthModel(root: data["root"] as! Bool, sid: data["sid"] as! String, error: data["error"] as! String, mqtt: data["mqtt"] as! Bool)
+                auth.update(model: model)
+                getData()
+            }
+            logginResult(error)
+        }
+    }
+    
+    public func onLogOut(result: @escaping () -> ()) {
+        model.clearAll()
+        auth.logOut()
+        result()
+    }
 }
