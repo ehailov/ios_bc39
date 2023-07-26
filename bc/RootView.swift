@@ -30,7 +30,7 @@ struct NavigationView: View {
                     case 4:
                         AddJurnalView(path: $path)
                     case 5:
-                        AddFileView()
+                        AddFileView(path: $path)
                     case 6:
                         SettingView()
                     default:
@@ -84,11 +84,11 @@ struct NavigationView: View {
     }
     
     init() {
-        if !EHDataHelper.share().isLogin() {
+        if !EHDataLayer.share().isLogin() {
             path = [1]
         } else {
             path = []
-            EHDataHelper.share().getData()
+            EHDataLayer.share().getData()
         }
     }
 }

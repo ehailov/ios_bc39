@@ -7,7 +7,22 @@
 
 import Foundation
 
-protocol EHViewModelProtocol {
+//MARK: - AddViewModel
+protocol EHAddProtocol {
     
+    func getData()
     
+    func getParameters() -> [String: Any]
+    
+}
+
+//MARK: - BaseViewModel
+protocol BaseViewModel {
+    
+    func reloadView()
+    
+    func subscribe(_ model: DataModel?, error: NSError?)
+    
+    func updateData()
+       
 }

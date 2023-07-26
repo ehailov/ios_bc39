@@ -14,7 +14,7 @@ public class FinanseViewModel: ObservableObject, BaseViewModel {
     @Published public var error: NSError? = nil
    
     init() {
-        let rx = EHDataHelper.share().rxData
+        let rx = EHDataLayer.share().rxData
         rx?.subscribe(onNext: { data in
             self.subscribe(data, error: nil)
         }, onError: { error in
@@ -34,7 +34,7 @@ public class FinanseViewModel: ObservableObject, BaseViewModel {
     
     public func updateData() {
         model = nil
-        EHDataHelper.share().updateData()
+        EHDataLayer.share().updateData()
         reloadView()
     }
     

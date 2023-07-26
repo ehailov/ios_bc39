@@ -65,7 +65,7 @@ struct LoginView: View {
     }
     
     func loggin() {
-        EHDataHelper.share().onLoggin(email, pass: pass) { error in
+        EHDataLayer.share().onLoggin(email, pass: pass) { error in
             if error == nil {
                 path = []
                 return

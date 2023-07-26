@@ -6,3 +6,27 @@
 //
 
 import Foundation
+
+public class AddModelView : ObservableObject {
+    
+    @Published public var isProgressBar = false
+    @Published public var isAlert = false
+    @Published public var isComplete = false
+    @Published public var localizedDescription  = ""
+    
+    public func failure(_ localizedDescription: String) {
+        self.localizedDescription = localizedDescription
+        isProgressBar.toggle()
+        isAlert.toggle()
+    }
+    
+    public func success() {
+        update()
+        isProgressBar.toggle()
+    }
+    
+    private func update() {
+        EHDataLayer.share().updateData()
+    }
+    
+}

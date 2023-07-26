@@ -20,7 +20,7 @@ public class ProfileVIewModel: ObservableObject, BaseViewModel {
     @Published public var isProgressBar: Bool = false
     
     init() {
-        let rx = EHDataHelper.share().rxData
+        let rx = EHDataLayer.share().rxData
         rx?.subscribe(onNext: { data in
             self.subscribe(data, error: nil)
         }, onError: { error in
@@ -50,12 +50,12 @@ public class ProfileVIewModel: ObservableObject, BaseViewModel {
         objs = nil
         users = nil
         reloadView()
-        EHDataHelper.share().updateData()
+        EHDataLayer.share().updateData()
     }
     
     public func logOut(result: @escaping () -> ()) {
         isProgressBar.toggle()
-        EHDataHelper.share().onLogOut {
+        EHDataLayer.share().onLogOut {
             self.isProgressBar.toggle()
             result()
         }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public class AddFinanceViewModel: ObservableObject {
+public class AddFinanceViewModel: AddModelView, EHAddProtocol {
     
     @Published public var article: [String] = []
     @Published public var object: [String] = []
@@ -23,38 +23,35 @@ public class AddFinanceViewModel: ObservableObject {
     @Published public var cash: String = ""
     @Published public var direction: String = ""
     @Published public var typeOfWork: String = ""
-    @Published public var isProgressBar: Bool = false
-    @Published public var isAlert: Bool = false
-    @Published public var isComplete: Bool = false
-    @Published public var localizedDescription: String = ""
-    
-    init() {
+   
+    override init() {
+        super.init()
         self.getData()
     }
     
-    private func getData() {
-        EHDataHelper.share().getArticle {
+    internal func getData() {
+        EHDataLayer.share().getArticle {
             if $0 != nil {
                 self.article = $0!
                 self.selectedArticle = self.article.last!
             }
         }
         
-        EHDataHelper.share().getObject {
+        EHDataLayer.share().getObject {
             if $0 != nil {
                 self.object = $0!
                 self.selectedObject = self.object.last!
             }
         }
         
-        EHDataHelper.share().getCounterparty {
+        EHDataLayer.share().getCounterparty {
             if $0 != nil {
                 self.counterparty = $0!
                 self.selectedCounterparty = self.counterparty.last!
             }
         }
         
-        EHDataHelper.share().getContractNumber {
+        EHDataLayer.share().getContractNumber {
             if $0 != nil {
                 self.contractNumber = $0!
                 self.selectedContractNumber = self.contractNumber.last!
@@ -64,52 +61,26 @@ public class AddFinanceViewModel: ObservableObject {
     
     public func setFinanse(result: @escaping () -> ()) {
         self.isProgressBar.toggle()
-        DispatchQueue.global().async {
-            var data: [String: Any] = [:]
-            data["file"] = self.image?.pngData() ?? ""
-            data["id_article"] = self.selectedArticle
-            data["id_objects"] = self.selectedObject
-            data["id_acon"] = self.selectedCounterparty
-            data["number"] = self.selectedContractNumber
-            data["sum"] = self.cash
-            data["text"] = self.direction
-            data["type_of_work"] = self.typeOfWork
-            EHDataHelper.share().setFinanse(parameters: data) { data, error in
-                if error != nil {
-                    EHLogger.verbose("save finanse", error)
-                    self.completeFailure(localizedDescription: error!.localizedDescription)
-                    return
-                }
-                if self.isComplete {
-                    EHDataHelper.share().setComleted(id: data!["id"]!) { _, error in
-                        if error != nil {
-                            EHLogger.verbose("save comleted", error)
-                            self.completeFailure(localizedDescription: error!.localizedDescription)
-                            return
-                        }
-                        result()
-                        self.completeSuccess()
-                    }
-                } else {
-                    result()
-                    self.completeSuccess()
-                }
+        EHDataLayer.share().setFinanse(parameters: self.getParameters()) { data, error in
+            if error != nil {
+                EHLogger.verbose("save finanse", error: error)
+                self.failure(error!.localizedDescription)
+                return
             }
-        }
-    }
-    
-    private func completeFailure(localizedDescription: String) {
-        DispatchQueue.main.async {
-            self.localizedDescription = localizedDescription
-            self.isProgressBar.toggle()
-            self.isAlert.toggle()
-        }
-    }
-    
-    private func completeSuccess() {
-        DispatchQueue.main.async {
-            EHDataHelper.share().updateData()
-            self.isProgressBar.toggle()
+            if self.isComplete {
+                EHDataLayer.share().setComleted(id: data!["id"]!) { _, error in
+                    if error != nil {
+                        EHLogger.verbose("save comleted", error: error)
+                        self.failure(error!.localizedDescription)
+                        return
+                    }
+                    result()
+                    self.success()
+                }
+            } else {
+                result()
+                self.success()
+            }
         }
     }
     
@@ -118,6 +89,19 @@ public class AddFinanceViewModel: ObservableObject {
             return
         }
         self.image = image
+    }
+    
+    func getParameters() -> [String : Any] {
+        var data: [String: Any] = [:]
+        data["file"] = self.image?.pngData() ?? ""
+        data["id_article"] = self.selectedArticle
+        data["id_objects"] = self.selectedObject
+        data["id_acon"] = self.selectedCounterparty
+        data["number"] = self.selectedContractNumber
+        data["sum"] = self.cash
+        data["text"] = self.direction
+        data["type_of_work"] = self.typeOfWork
+        return data
     }
     
 }

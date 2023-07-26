@@ -14,7 +14,7 @@ public class JurnalViewModel: ObservableObject, BaseViewModel {
     @Published public var error: NSError? = nil
     
     init() {
-        let rx = EHDataHelper.share().rxData
+        let rx = EHDataLayer.share().rxData
         rx?.subscribe(onNext: { [self] data in
             self.subscribe(data, error: nil)
         }, onError: { [self] error in
@@ -34,7 +34,7 @@ public class JurnalViewModel: ObservableObject, BaseViewModel {
     
     public func updateData() {
         model = nil
-        EHDataHelper.share().updateData()
+        EHDataLayer.share().updateData()
         reloadView()
     }
     

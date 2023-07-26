@@ -39,38 +39,6 @@ public class EHHttpConnection {
         }
     }
     
-    public func upload(_ address: String, parameters: [String: Any], result: @escaping HttpConnectionResult) {
-        let af = AF.upload(multipartFormData: {
-            for parameter in parameters {
-                let type = type(of: parameter.value)
-                if type == Data.self {
-                    let name = parameter.key
-                    $0.append(parameter.value as! Data, withName: name, fileName: "image.png", mimeType: "text/plain")
-                } else if type == String.self {
-                    let data = parameter.value as! String
-                    $0.append(data.data(using: .utf8)!, withName: parameter.key)
-                } else {
-                    continue
-                }
-                
-            }
-            
-        }, to: address, method: .post, headers: getHTTPHeaders())
-        
-        af.response { [self] data in
-            if data.error != nil {
-                result(nil, getError(data.error!.errorDescription, code: 1))
-                return
-            }
-            let statusCode = data.response?.statusCode
-            if statusCode == 200 {
-                result(parceJson(data.data!), nil)
-            } else {
-                result(nil, getError("statusCode != 200", code: 1))
-            }
-        }
-    }
-    
     private func getError(_ errorDescription: String?, code: Int) -> NSError {
         if errorDescription == nil {
             let userInfo = [NSLocalizedDescriptionKey: "unknown error"]
@@ -115,4 +83,42 @@ public class EHHttpConnection {
         return data
     }
     
+}
+
+//MARK: - Upload data
+extension EHHttpConnection {
+    
+    public func upload(_ address: String, parameters: [String: Any], result: @escaping HttpConnectionResult) {
+        let af = AF.upload(multipartFormData: {
+            for parameter in parameters {
+                let type = type(of: parameter.value)
+                if type == Data.self {
+                    let name = parameter.key
+                    $0.append(parameter.value as! Data, withName: name, fileName: "image.png", mimeType: "text/plain")
+                } else if type == URL.self {
+                    $0.append(parameter.value as! URL, withName: parameter.key)
+                } else if type == String.self {
+                    let data = parameter.value as! String
+                    $0.append(data.data(using: .utf8)!, withName: parameter.key)
+                } else {
+                    continue
+                }
+                
+            }
+            
+        }, to: address, method: .post, headers: getHTTPHeaders())
+        
+        af.response { [self] data in
+            if data.error != nil {
+                result(nil, getError(data.error!.errorDescription, code: 1))
+                return
+            }
+            let statusCode = data.response?.statusCode
+            if statusCode == 200 {
+                result(parceJson(data.data!), nil)
+            } else {
+                result(nil, getError("statusCode != 200", code: 1))
+            }
+        }
+    }
 }
