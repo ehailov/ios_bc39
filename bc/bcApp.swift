@@ -20,7 +20,7 @@ struct bcApp: App {
             
             ZStack {
                 if self.showBcView {
-                    NavigationView()
+                    RootView()
                 } else {
                     Image("background")
                         .resizable()
@@ -42,6 +42,7 @@ struct bcApp: App {
                     
                 }
             }
+            
             .onAppear {
                 viewDidLoad()
             }

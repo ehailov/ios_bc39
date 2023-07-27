@@ -11,7 +11,7 @@ import RxSwift
 struct FinanсeView: View {
     
     @Binding var path: [Int]
-    @ObservedObject var model = FinanseViewModel()
+    @ObservedObject var model = FinanсeViewModel()
     
     var body: some View {
         NavigationView {
@@ -38,7 +38,7 @@ struct FinanсeView: View {
             .navigationTitle("Finance")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                CustomBarItem(path: $path)
+                FinanсeCustomBarItem(path: $path)
             }
         }
     }
@@ -88,7 +88,7 @@ struct FinanсeItem: View {
     
 }
 
-struct CustomBarItem: ToolbarContent {
+struct FinanсeCustomBarItem: ToolbarContent {
     
     @Binding var path: [Int]
     

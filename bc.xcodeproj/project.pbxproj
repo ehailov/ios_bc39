@@ -23,17 +23,17 @@
 		462015C02A5ECEBC00818E23 /* AddFinanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462015BF2A5ECEBC00818E23 /* AddFinanceViewModel.swift */; };
 		46370A5C2A56E77A002B94FA /* UIStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46370A5B2A56E77A002B94FA /* UIStyle.swift */; };
 		463BCF6D2A4EC65600AAD4C5 /* FinanseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF6C2A4EC65600AAD4C5 /* FinanseModel.swift */; };
-		463BCF762A4EC89500AAD4C5 /* JurnalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF722A4EC89500AAD4C5 /* JurnalView.swift */; };
+		463BCF762A4EC89500AAD4C5 /* JornalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF722A4EC89500AAD4C5 /* JornalView.swift */; };
 		463BCF772A4EC89500AAD4C5 /* FileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF732A4EC89500AAD4C5 /* FileView.swift */; };
 		463BCF782A4EC89500AAD4C5 /* ProfileVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF742A4EC89500AAD4C5 /* ProfileVIew.swift */; };
-		463BCF792A4EC89500AAD4C5 /* FinanseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF752A4EC89500AAD4C5 /* FinanseView.swift */; };
-		463BCF7B2A4EC8B900AAD4C5 /* FinanseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF7A2A4EC8B900AAD4C5 /* FinanseViewModel.swift */; };
+		463BCF792A4EC89500AAD4C5 /* FinanсeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF752A4EC89500AAD4C5 /* FinanсeView.swift */; };
+		463BCF7B2A4EC8B900AAD4C5 /* FinanсeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF7A2A4EC8B900AAD4C5 /* FinanсeViewModel.swift */; };
 		463BCF7D2A4EFE1400AAD4C5 /* EHHttpConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463BCF7C2A4EFE1400AAD4C5 /* EHHttpConnection.swift */; };
 		464DFC842A52C5BC00042692 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC832A52C5BC00042692 /* AuthModel.swift */; };
 		464DFC882A52C64F00042692 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC872A52C64F00042692 /* DataModel.swift */; };
 		464DFC8C2A52D23600042692 /* JurnalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC8B2A52D23600042692 /* JurnalModel.swift */; };
 		464DFC8E2A52D6BD00042692 /* EHUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC8D2A52D6BD00042692 /* EHUserDefaults.swift */; };
-		464DFC902A52DC4700042692 /* JurnalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC8F2A52DC4700042692 /* JurnalViewModel.swift */; };
+		464DFC902A52DC4700042692 /* JornalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC8F2A52DC4700042692 /* JornalViewModel.swift */; };
 		464DFC922A52E54E00042692 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC912A52E54E00042692 /* FileModel.swift */; };
 		464DFC942A52EA4400042692 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC932A52EA4400042692 /* ProfileModel.swift */; };
 		464DFC972A52EEF700042692 /* AccModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DFC962A52EEF700042692 /* AccModel.swift */; };
@@ -75,18 +75,18 @@
 		462015BF2A5ECEBC00818E23 /* AddFinanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFinanceViewModel.swift; sourceTree = "<group>"; };
 		46370A5B2A56E77A002B94FA /* UIStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyle.swift; sourceTree = "<group>"; };
 		463BCF6C2A4EC65600AAD4C5 /* FinanseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinanseModel.swift; path = Models/FinanseModel.swift; sourceTree = "<group>"; };
-		463BCF722A4EC89500AAD4C5 /* JurnalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JurnalView.swift; path = View/JurnalView.swift; sourceTree = "<group>"; };
+		463BCF722A4EC89500AAD4C5 /* JornalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JornalView.swift; path = View/JornalView.swift; sourceTree = "<group>"; };
 		463BCF732A4EC89500AAD4C5 /* FileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileView.swift; path = View/FileView.swift; sourceTree = "<group>"; };
 		463BCF742A4EC89500AAD4C5 /* ProfileVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileVIew.swift; path = View/ProfileVIew.swift; sourceTree = "<group>"; };
-		463BCF752A4EC89500AAD4C5 /* FinanseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinanseView.swift; path = View/FinanseView.swift; sourceTree = "<group>"; };
-		463BCF7A2A4EC8B900AAD4C5 /* FinanseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanseViewModel.swift; sourceTree = "<group>"; };
+		463BCF752A4EC89500AAD4C5 /* FinanсeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FinanсeView.swift"; path = "View/FinanсeView.swift"; sourceTree = "<group>"; };
+		463BCF7A2A4EC8B900AAD4C5 /* FinanсeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FinanсeViewModel.swift"; sourceTree = "<group>"; };
 		463BCF7C2A4EFE1400AAD4C5 /* EHHttpConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHHttpConnection.swift; sourceTree = "<group>"; };
 		463BCF812A4F091900AAD4C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		464DFC832A52C5BC00042692 /* AuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthModel.swift; path = Models/AuthModel.swift; sourceTree = "<group>"; };
 		464DFC872A52C64F00042692 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataModel.swift; path = Models/DataModel.swift; sourceTree = "<group>"; };
 		464DFC8B2A52D23600042692 /* JurnalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JurnalModel.swift; path = Models/JurnalModel.swift; sourceTree = "<group>"; };
 		464DFC8D2A52D6BD00042692 /* EHUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHUserDefaults.swift; sourceTree = "<group>"; };
-		464DFC8F2A52DC4700042692 /* JurnalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JurnalViewModel.swift; sourceTree = "<group>"; };
+		464DFC8F2A52DC4700042692 /* JornalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JornalViewModel.swift; sourceTree = "<group>"; };
 		464DFC912A52E54E00042692 /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileModel.swift; path = Models/FileModel.swift; sourceTree = "<group>"; };
 		464DFC932A52EA4400042692 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileModel.swift; path = Models/ProfileModel.swift; sourceTree = "<group>"; };
 		464DFC962A52EEF700042692 /* AccModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AccModel.swift; path = Models/AccModel.swift; sourceTree = "<group>"; };
@@ -165,8 +165,8 @@
 		4609309A2A4D79AA00195025 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				463BCF752A4EC89500AAD4C5 /* FinanseView.swift */,
-				463BCF722A4EC89500AAD4C5 /* JurnalView.swift */,
+				463BCF752A4EC89500AAD4C5 /* FinanсeView.swift */,
+				463BCF722A4EC89500AAD4C5 /* JornalView.swift */,
 				463BCF732A4EC89500AAD4C5 /* FileView.swift */,
 				463BCF742A4EC89500AAD4C5 /* ProfileVIew.swift */,
 				46D3D0D32A5EFC1000FA96F5 /* CashView.swift */,
@@ -200,8 +200,8 @@
 		463BCF712A4EC7AE00AAD4C5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				463BCF7A2A4EC8B900AAD4C5 /* FinanseViewModel.swift */,
-				464DFC8F2A52DC4700042692 /* JurnalViewModel.swift */,
+				463BCF7A2A4EC8B900AAD4C5 /* FinanсeViewModel.swift */,
+				464DFC8F2A52DC4700042692 /* JornalViewModel.swift */,
 				464DFCA02A5304E500042692 /* FileViewModel.swift */,
 				460305C62A542EC300C7813B /* ProfileVIewModel.swift */,
 				4652EC952A654E320086173F /* ImagesViewModel.swift */,
@@ -381,15 +381,15 @@
 				462015BD2A5EB48600818E23 /* EHCameraView.swift in Sources */,
 				46F726042A61717300127295 /* AddJurnalView.swift in Sources */,
 				4671DEF02A6FF12100B86396 /* AddFileViewModel.swift in Sources */,
-				463BCF762A4EC89500AAD4C5 /* JurnalView.swift in Sources */,
+				463BCF762A4EC89500AAD4C5 /* JornalView.swift in Sources */,
 				46370A5C2A56E77A002B94FA /* UIStyle.swift in Sources */,
 				46A21ECC2A66DB5B00424E1F /* EHSharedSheet.swift in Sources */,
 				464DFC992A52EF4F00042692 /* NumModel.swift in Sources */,
 				467A84FD2A6ABB58001B6D87 /* AddJurnalViewModel.swift in Sources */,
-				463BCF792A4EC89500AAD4C5 /* FinanseView.swift in Sources */,
+				463BCF792A4EC89500AAD4C5 /* FinanсeView.swift in Sources */,
 				464DFC8E2A52D6BD00042692 /* EHUserDefaults.swift in Sources */,
 				464DFC882A52C64F00042692 /* DataModel.swift in Sources */,
-				463BCF7B2A4EC8B900AAD4C5 /* FinanseViewModel.swift in Sources */,
+				463BCF7B2A4EC8B900AAD4C5 /* FinanсeViewModel.swift in Sources */,
 				4613C88D2A713ABA00FCA4AD /* EHDispacher.swift in Sources */,
 				4652EC962A654E320086173F /* ImagesViewModel.swift in Sources */,
 				4613C88F2A713DA000FCA4AD /* AddModelView.swift in Sources */,
@@ -411,7 +411,7 @@
 				4650E1332A668D8D0000EBD1 /* ImageModel.swift in Sources */,
 				464DFC842A52C5BC00042692 /* AuthModel.swift in Sources */,
 				462015B52A5EA86800818E23 /* AddFinanceView.swift in Sources */,
-				464DFC902A52DC4700042692 /* JurnalViewModel.swift in Sources */,
+				464DFC902A52DC4700042692 /* JornalViewModel.swift in Sources */,
 				462015C02A5ECEBC00818E23 /* AddFinanceViewModel.swift in Sources */,
 				460305C72A542EC300C7813B /* ProfileVIewModel.swift in Sources */,
 				46D3D0D22A5EDC4500FA96F5 /* EHLogger.swift in Sources */,

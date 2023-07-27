@@ -9,24 +9,32 @@ import SwiftUI
 
 struct FileView: View {
     
-    @ObservedObject var model: FileViewModel = FileViewModel()
+    @Binding var path: [Int]
+    @ObservedObject var model = FileViewModel()
     
     var body: some View {
-        ZStack {
-            if model.error != nil {
-                Text(model.error!.localizedDescription).foregroundColor(.primary)
-            } else if model.model != nil {
-                if model.model!.isEmpty {
-                    Text("noData").foregroundColor(.primary)
-                } else {
-                    List(model.model!) { data in
-                        FileItem(data: data)
-                    }.refreshable {
-                        model.updateData()
+        NavigationView {
+            ZStack {
+                if model.error != nil {
+                    Text(model.error!.localizedDescription).foregroundColor(.primary)
+                } else if model.model != nil {
+                    if model.model!.isEmpty {
+                        Text("noData").foregroundColor(.primary)
+                    } else {
+                        List(model.model!) { data in
+                            FileItem(data: data)
+                        }.refreshable {
+                            model.updateData()
+                        }
                     }
+                } else {
+                    ProgressView()
                 }
-            } else {
-                ProgressView()
+            }
+            .navigationTitle("Files")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                FileCustomBarItem(path: $path)
             }
         }
     }
@@ -62,6 +70,27 @@ struct FileItem: View {
             return "Jpg"
         } else {
             return "None"
+        }
+    }
+}
+
+struct FileCustomBarItem: ToolbarContent {
+    
+    @Binding var path: [Int]
+    
+    var body: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Image("Logo2")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 80, height: 18, alignment: .leading)
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                path = [5]
+            } label: {
+                Image(systemName: "plus.circle.fill")
+            }
         }
     }
 }

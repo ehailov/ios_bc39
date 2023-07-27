@@ -1,5 +1,5 @@
 //
-//  JurnalFragment.swift
+//  JornalView.swift
 //  bc
 //
 //  Created by Evgeny Hailov on 29.06.2023.
@@ -10,7 +10,7 @@ import SwiftUI
 struct JornalView: View {
     
     @Binding var path: [Int]
-    @ObservedObject var model = JurnalViewModel()
+    @ObservedObject var model = JornalViewModel()
     
     var body: some View {
         NavigationView {
@@ -34,7 +34,7 @@ struct JornalView: View {
             .navigationTitle("Journal")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                CustomBarItem(path: $path)
+                JornalCustomBarItem(path: $path)
                 
             }
         }
@@ -73,7 +73,7 @@ struct JornalItem: View {
     }
 }
 
-struct CustomBarItem: ToolbarContent {
+struct JornalCustomBarItem: ToolbarContent {
     
     @Binding var path: [Int]
     

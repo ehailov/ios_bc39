@@ -1,5 +1,5 @@
 //
-//  FinanseViewModel.swift
+//  FinanceViewModel.swift
 //  bc
 //
 //  Created by Evgeny Hailov on 30.06.2023.

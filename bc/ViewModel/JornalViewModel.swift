@@ -1,5 +1,5 @@
 //
-//  JurnalViewModel.swift
+//  JornalViewModel.swift
 //  bc
 //
 //  Created by Evgeny Hailov on 03.07.2023.
