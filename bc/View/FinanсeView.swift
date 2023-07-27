@@ -8,35 +8,43 @@
 import SwiftUI
 import RxSwift
 
-struct FinanseView: View {
+struct FinanсeView: View {
     
-    @ObservedObject var model: FinanseViewModel = FinanseViewModel()
+    @Binding var path: [Int]
+    @ObservedObject var model = FinanseViewModel()
     
     var body: some View {
-        ZStack {
-            if model.error != nil {
-                Text(model.error!.localizedDescription).foregroundColor(.primary)
-            } else if model.model != nil && !model.isNil() {
-                if model.model!.isEmpty {
-                    Text("noData").foregroundColor(.primary)
-                } else {
-                    List(model.model!) { data in
-                        FinanseItem(data: data)
-                            .listRowBackground(data.article == "Приход" ? Color.mint : Color.pink)
-                            .listRowSeparator(.visible)
-                            .listStyle(.automatic)
-                    }.refreshable {
-                        model.updateData()
+        NavigationView {
+            ZStack {
+                if model.error != nil {
+                    Text(model.error!.localizedDescription).foregroundColor(.primary)
+                } else if model.model != nil && !model.isNil() {
+                    if model.model!.isEmpty {
+                        Text("noData").foregroundColor(.primary)
+                    } else {
+                        List(model.model!) { data in
+                            FinanсeItem(data: data)
+                                .listRowBackground(data.article == "Приход" ? Color.mint : Color.pink)
+                                .listRowSeparator(.visible)
+                                .listStyle(.automatic)
+                        }.refreshable {
+                            model.updateData()
+                        }
                     }
+                } else {
+                    ProgressView()
                 }
-            } else {
-                ProgressView()
+            }
+            .navigationTitle("Finance")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                CustomBarItem(path: $path)
             }
         }
     }
 }
     
-struct FinanseItem: View {
+struct FinanсeItem: View {
     
     @State var isSheet: Bool = false
     var data: FinanseModel
@@ -75,6 +83,35 @@ struct FinanseItem: View {
         }
         .sheet(isPresented: $isSheet) {
             ImagesView(data, isPresented: $isSheet)
+        }
+    }
+    
+}
+
+struct CustomBarItem: ToolbarContent {
+    
+    @Binding var path: [Int]
+    
+    var body: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Image("Logo2")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 80, height: 18, alignment: .leading)
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                path = [2]
+            } label: {
+                Image(systemName: "plus.circle.fill")
+            }
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                path = [3]
+            } label: {
+                Image(systemName: "dollarsign.circle.fill")
+            }
         }
     }
     

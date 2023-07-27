@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public class JurnalViewModel: ObservableObject, BaseViewModel {
+public class JornalViewModel: ObservableObject, BaseViewModel {
     
     @Published public var model: [JurnalModel]? = nil
     @Published public var error: NSError? = nil

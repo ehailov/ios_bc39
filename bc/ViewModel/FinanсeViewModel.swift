@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public class FinanseViewModel: ObservableObject, BaseViewModel {
+public class FinanсeViewModel: ObservableObject, BaseViewModel {
     
     @Published public var model: [FinanseModel]? = nil
     @Published public var error: NSError? = nil
