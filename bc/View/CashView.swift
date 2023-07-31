@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CashView: View {
     
-    @ObservedObject private var model: CashViewModlel = CashViewModlel()
+    @ObservedObject private var model: CashViewModel = CashViewModel()
     
     var body: some View {
         if model.isProgressBar {

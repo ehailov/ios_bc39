@@ -12,6 +12,12 @@ public typealias HttpConnectionResult = (Any?, NSError?) -> Void
 
 public class EHHttpConnection {
     
+    var logger: EHLogger!
+    
+    init(logger: EHLogger) {
+        self.logger = logger
+    }
+    
     public func execute(_ address: String, parameters: [String: String]?, method: String, result: @escaping HttpConnectionResult) {
         var af: DataRequest
         if method == "GET" {
@@ -68,7 +74,7 @@ public class EHHttpConnection {
         do {
             return try JSONSerialization.jsonObject(with: data)
         } catch {
-            EHLogger.verbose("Model is error", error: (error) as NSError)
+            self.logger.verbose("Model is error", error: (error) as NSError)
             return nil
         }
     }
@@ -78,7 +84,7 @@ public class EHHttpConnection {
         do {
             data = try Data(contentsOf: url)
         } catch {
-            EHLogger.verbose("-", error: (error) as NSError)
+            self.logger.verbose("-", error: (error) as NSError)
         }
         return data
     }

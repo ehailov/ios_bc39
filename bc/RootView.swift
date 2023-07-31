@@ -64,11 +64,13 @@ struct RootView: View {
     }
     
     init() {
-        if !EHDataLayer.share().isLogin() {
+        let container = EHDataLayerСontainer()
+        let data = container.get()
+        if !data.isLogin() {
             path = [1]
         } else {
             path = []
-            EHDataLayer.share().getData()
+            data.getData()
         }
     }
 }

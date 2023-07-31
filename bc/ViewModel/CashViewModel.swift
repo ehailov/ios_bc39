@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CashViewModlel: ObservableObject{
+class CashViewModel: ObservableObject{
     
     @Published public var article: [String] = []
     @Published public var object: [String] = []
@@ -24,6 +24,8 @@ class CashViewModlel: ObservableObject{
     @Published public var isAlert: Bool = false
     @Published public var localizedDescription: String = ""
     @Published public var cashValue: String = "0"
+    lazy var data = getDataLayer()
+    lazy var logger = getLogger()
     
     init() {
         self.selectedFrom = Utils.getDateFrom(string: "2021-01-01", format: "yyyy-MM-dd") ?? Date()
@@ -31,28 +33,28 @@ class CashViewModlel: ObservableObject{
     }
     
     private func getData() {
-        EHDataLayer.share().getArticle {
+        data.getArticle {
             if $0 != nil {
                 self.article = $0!
                 self.selectedArticle = self.article.last!
             }
         }
         
-        EHDataLayer.share().getObject {
+        data.getObject {
             if $0 != nil {
                 self.object = $0!
                 self.selectedObject = self.object.last!
             }
         }
         
-        EHDataLayer.share().getCounterparty {
+        data.getCounterparty {
             if $0 != nil {
                 self.counterparty = $0!
                 self.selectedCounterparty = self.counterparty.last!
             }
         }
         
-        EHDataLayer.share().getContractNumber {
+        data.getContractNumber {
             if $0 != nil {
                 self.contractNumber = $0!
                 self.selectedContractNumber = self.contractNumber.last!
@@ -69,10 +71,10 @@ class CashViewModlel: ObservableObject{
         parametrs["f3"] = selectedContractNumber
         parametrs["f4"] = Utils.stringFrom(date: selectedBefore)
         parametrs["f5"] = Utils.stringFrom(date: selectedFrom)
-        EHDataLayer.share().setCash(parameters: parametrs, comleted: isComplete) { data, error in
+        data.setCash(parameters: parametrs, comleted: isComplete) { data, error in
             if error != nil {
                 self.localizedDescription = error!.localizedDescription
-                EHLogger.verbose("setCash()", error: error!)
+                self.logger.verbose("setCash()", error: error!)
                 self.isProgressBar.toggle()
                 self.isAlert.toggle()
                 return

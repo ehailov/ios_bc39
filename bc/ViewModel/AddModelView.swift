@@ -13,6 +13,7 @@ public class AddModelView : ObservableObject {
     @Published public var isAlert = false
     @Published public var isComplete = false
     @Published public var localizedDescription  = ""
+    var data: EHDataLayer?
     
     public func failure(_ localizedDescription: String) {
         self.localizedDescription = localizedDescription
@@ -26,7 +27,7 @@ public class AddModelView : ObservableObject {
     }
     
     private func update() {
-        EHDataLayer.share().updateData()
+        data?.updateData()
     }
     
 }

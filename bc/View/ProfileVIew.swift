@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileVIew: View {
     
     @Binding var path: [Int]
-    @ObservedObject var model = ProfileVIewModel()
+    @ObservedObject var model = ProfileViewModel()
     
     var body: some View {
         NavigationView {

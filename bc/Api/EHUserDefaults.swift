@@ -23,8 +23,8 @@ public class EHUserDefaults {
     public func update(model: AuthModel) {
         self.isRoot = model.root
         self.sid = model.sid
-        _ = save(sid, key: sidKey)
-        _ = save(isRoot, key: isRootKey)
+        self.save(sid, key: sidKey)
+        self.save(isRoot, key: isRootKey)
     }
     
     public func isLoggin() -> Bool {
@@ -34,8 +34,8 @@ public class EHUserDefaults {
     public func logOut() {
         self.isRoot = false
         self.sid = ""
-        _ = remove(sidKey)
-        _ = remove(isRootKey)
+        self.remove(sidKey)
+        self.remove(isRootKey)
     }
     
     //MARK: - Private metods

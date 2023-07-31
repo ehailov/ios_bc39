@@ -9,13 +9,13 @@ import Foundation
 
 public class EHDispacher {
     
-    static public func global(callback: @escaping ()->()) {
+    public func global(callback: @escaping ()->()) {
         DispatchQueue.global(qos: .userInitiated).async {
             callback()
         }
     }
     
-    static public func main(callback: @escaping ()->()) {
+    public func main(callback: @escaping ()->()) {
         DispatchQueue.main.async {
             callback()
         }

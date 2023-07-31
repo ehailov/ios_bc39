@@ -15,9 +15,7 @@ struct bcApp: App {
     @State private var version: String = ""
     
     var body: some Scene {
-        
         WindowGroup {
-            
             ZStack {
                 if self.showBcView {
                     RootView()

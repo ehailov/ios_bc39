@@ -15,13 +15,14 @@ class AddFileViewModel: AddModelView, EHAddProtocol {
     @Published public var name = ""
     @Published public var openFile = false
     @Published public var url: URL?
+    lazy var logger = getLogger()
     
     override init() {
         super.init()
         self.getData()
     }
     internal func getData() {
-        EHDataLayer.share().getObject {
+        data?.getObject {
             if $0 != nil {
                 self.object = $0!
                 self.selectedObject = self.object.last!
@@ -37,9 +38,9 @@ class AddFileViewModel: AddModelView, EHAddProtocol {
     public func setFile(result: @escaping ()->()) {
         self.isProgressBar.toggle()
         let parameters = self.getParameters()
-        EHDataLayer.share().setFile(parameters: parameters) { data, error in
+        data?.setFile(parameters: parameters) { data, error in
             if error != nil {
-                EHLogger.verbose("save jurnal", error: error)
+                self.logger.verbose("save jurnal", error: error as? NSError)
                 self.failure(error!.localizedDescription)
                 return
             }

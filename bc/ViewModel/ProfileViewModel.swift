@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public class ProfileVIewModel: ObservableObject, BaseViewModel {
+public class ProfileViewModel: ObservableObject, BaseViewModel {
     
     @Published public var profile: ProfileModel = ProfileModel()
     @Published public var accs: [AccModel]? = nil
@@ -18,9 +18,10 @@ public class ProfileVIewModel: ObservableObject, BaseViewModel {
     @Published public var error: NSError?
     @Published public var version: String = ""
     @Published public var isProgressBar: Bool = false
+    lazy var data = getDataLayer()
     
     init() {
-        let rx = EHDataLayer.share().rxData
+        let rx = data.rxData
         rx?.subscribe(onNext: { data in
             self.subscribe(data, error: nil)
         }, onError: { error in
@@ -50,12 +51,12 @@ public class ProfileVIewModel: ObservableObject, BaseViewModel {
         objs = nil
         users = nil
         reloadView()
-        EHDataLayer.share().updateData()
+        data.updateData()
     }
     
     public func logOut(result: @escaping () -> ()) {
         isProgressBar.toggle()
-        EHDataLayer.share().onLogOut {
+        data.onLogOut {
             self.isProgressBar.toggle()
             result()
         }

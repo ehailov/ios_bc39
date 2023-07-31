@@ -12,10 +12,10 @@ public class FileViewModel: ObservableObject, BaseViewModel {
 
     @Published public var model: [FileModel]? = nil
     @Published public var error: NSError? = nil
-    
+    lazy var data = getDataLayer()
     
     init() {
-        let rx = EHDataLayer.share().rxData
+        let rx = data.rxData
         rx?.subscribe(onNext: { data in
             self.subscribe(data, error: nil)
         }, onError: { error in
@@ -35,7 +35,7 @@ public class FileViewModel: ObservableObject, BaseViewModel {
     
     public func updateData() {
         model = nil
-        EHDataLayer.share().updateData()
+        data.updateData()
         reloadView()
     }
     

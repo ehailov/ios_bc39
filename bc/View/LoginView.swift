@@ -9,15 +9,12 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var email: String = ""
-    @State private var pass: String = ""
-    @State private var isAlert: Bool = false
-    @State private var showProgressView = false
+    @ObservedObject var model = LoginViewModel()
     @Binding var path: [Int]
     
     var body: some View {
         ZStack {
-            if !showProgressView {
+            if !model.showProgressView {
                 VStack {
                     ScrollView {
                         Image("Logo")
@@ -26,7 +23,7 @@ struct LoginView: View {
                         
                         HStack {
                             Image(systemName: "person").foregroundColor(.gray)
-                            TextField("Enter your email", text: $email)
+                            TextField("Enter your email", text: $model.email)
                                 .textFieldStyle(.roundedBorder)
                                 .padding(.trailing)
                                 .disableAutocorrection(true)
@@ -35,7 +32,7 @@ struct LoginView: View {
                         .padding(.all)
                         HStack {
                             Image(systemName: "key").foregroundColor(.gray)
-                            SecureField("Enter your password", text: $pass)
+                            SecureField("Enter your password", text: $model.pass)
                                 .textFieldStyle(.roundedBorder)
                                 .padding(.trailing)
                                 .disableAutocorrection(true)
@@ -43,17 +40,19 @@ struct LoginView: View {
                         }
                         .padding(.all)
                         Button("Enter") {
-                            showProgressView.toggle()
-                            loggin()
+                            model.showProgressView.toggle()
+                            model.loggin {
+                                path = []
+                            }
                         }
                         .buttonStyle(EHBlueButton())
                         .padding(.all)
-                        .alert(isPresented: $isAlert) {
+                        .alert(isPresented: $model.isAlert) {
                             Alert(title: Text("Error"), message: Text("Invalid password or email"))
                         }
                     }
                     Spacer()
-                    Text(getVersion())
+                    Text(model.getVersion())
                         .font(.system(size: 12))
                         .padding(.bottom)
                 }
@@ -64,21 +63,7 @@ struct LoginView: View {
         .navigationBarBackButtonHidden()
     }
     
-    func loggin() {
-        EHDataLayer.share().onLoggin(email, pass: pass) { error in
-            if error == nil {
-                path = []
-                return
-            }
-            isAlert = true
-            showProgressView = false
-        }
-    }
     
-    func getVersion() -> String {
-        let version = LocalizedStringKey("Version").stringValue()
-        return String(format: "%@: %@", version, Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-")
-    }
     
 }
 

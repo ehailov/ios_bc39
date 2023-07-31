@@ -9,7 +9,7 @@ import Foundation
 
 public class EHLogger {
     
-    public static func verbose(_ text: String, error: NSError?) {
+    public func verbose(_ text: String, error: NSError?) {
         if error != nil {
             printError(fromText: text, description: error!.localizedDescription)
             return
@@ -17,11 +17,11 @@ public class EHLogger {
         printLog(fromText: text)
     }
     
-    static private func printError(fromText: String, description: String) {
+    private func printError(fromText: String, description: String) {
         NSLog("BC Error: %@ %@", fromText, description)
     }
     
-    static private func printLog(fromText: String) {
+    private func printLog(fromText: String) {
         NSLog("BC Log: %@ ", fromText)
     }
 }

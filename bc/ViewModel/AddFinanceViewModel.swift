@@ -23,6 +23,7 @@ public class AddFinanceViewModel: AddModelView, EHAddProtocol {
     @Published public var cash: String = ""
     @Published public var direction: String = ""
     @Published public var typeOfWork: String = ""
+    lazy var logger = getLogger()
    
     override init() {
         super.init()
@@ -30,28 +31,28 @@ public class AddFinanceViewModel: AddModelView, EHAddProtocol {
     }
     
     internal func getData() {
-        EHDataLayer.share().getArticle {
+        data?.getArticle {
             if $0 != nil {
                 self.article = $0!
                 self.selectedArticle = self.article.last!
             }
         }
         
-        EHDataLayer.share().getObject {
+        data?.getObject {
             if $0 != nil {
                 self.object = $0!
                 self.selectedObject = self.object.last!
             }
         }
         
-        EHDataLayer.share().getCounterparty {
+        data?.getCounterparty {
             if $0 != nil {
                 self.counterparty = $0!
                 self.selectedCounterparty = self.counterparty.last!
             }
         }
         
-        EHDataLayer.share().getContractNumber {
+        data?.getContractNumber {
             if $0 != nil {
                 self.contractNumber = $0!
                 self.selectedContractNumber = self.contractNumber.last!
@@ -61,16 +62,16 @@ public class AddFinanceViewModel: AddModelView, EHAddProtocol {
     
     public func setFinanse(result: @escaping () -> ()) {
         self.isProgressBar.toggle()
-        EHDataLayer.share().setFinanse(parameters: self.getParameters()) { data, error in
+        data?.setFinanse(parameters: self.getParameters()) { data, error in
             if error != nil {
-                EHLogger.verbose("save finanse", error: error)
+                self.logger.verbose("save finanse", error: error! as NSError)
                 self.failure(error!.localizedDescription)
                 return
             }
             if self.isComplete {
-                EHDataLayer.share().setComleted(id: data!["id"]!) { _, error in
+                self.data?.setComleted(id: data!["id"]!) { _, error in
                     if error != nil {
-                        EHLogger.verbose("save comleted", error: error)
+                        self.logger.verbose("save comleted", error: error as? NSError)
                         self.failure(error!.localizedDescription)
                         return
                     }

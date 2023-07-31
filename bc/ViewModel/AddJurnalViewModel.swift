@@ -17,6 +17,7 @@ public class AddJurnalViewModel: AddModelView, EHAddProtocol {
     @Published public var image: UIImage? = nil
     @Published public var typeOfWork: String = ""
     @Published public var selectedDate: Date = Date()
+    lazy var logger = getLogger()
     
     override init() {
         super.init()
@@ -24,7 +25,7 @@ public class AddJurnalViewModel: AddModelView, EHAddProtocol {
     }
     
     internal func getData() {
-        EHDataLayer.share().getObject {
+        data?.getObject {
             if $0 != nil {
                 self.object = $0!
                 self.selectedObject = self.object.last!
@@ -35,9 +36,9 @@ public class AddJurnalViewModel: AddModelView, EHAddProtocol {
     public func setJurnal(result: @escaping () -> ()) {
         self.isProgressBar.toggle()
         let parameters = self.getParameters()
-        EHDataLayer.share().setJurnal(parameters: parameters) { data, error in
+        data?.setJurnal(parameters: parameters) { data, error in
             if error != nil {
-                EHLogger.verbose("save jurnal", error: error)
+                self.logger.verbose("save jurnal", error: error)
                 self.failure(error!.localizedDescription)
                 return
             }

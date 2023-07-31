@@ -18,20 +18,21 @@ public typealias PickerResult = (_ data: [String]?) -> ()
 
 public class EHDataLayer {
     
-    static let data = EHDataLayer()
-    private var httpConnection: EHHttpConnection!
-    private var auth: EHUserDefaults!
     public var rxData: BehaviorSubject<DataModel>!
+    
+    //MARK: - DI property
+    private var httpConnection: EHHttpConnection!
+    private var user: EHUserDefaults!
     private var model: DataModel!
+    private var logger: EHLogger!
+    private var dispacher: EHDispacher!
     
-    public static func share() -> EHDataLayer {
-        return data
-    }
-    
-    init() {
-        self.auth = EHUserDefaults()
-        self.model = DataModel()
-        self.httpConnection = EHHttpConnection()
+    init(user: EHUserDefaults, model: DataModel, httpConnection: EHHttpConnection, logger: EHLogger, dispacher: EHDispacher) {
+        self.dispacher = dispacher
+        self.user = user
+        self.model = model
+        self.httpConnection = httpConnection
+        self.logger = logger
         self.rxData = BehaviorSubject<DataModel>(value: self.model)
     }
     
@@ -40,7 +41,7 @@ public class EHDataLayer {
     }
     
     public func isLogin() -> Bool {
-        return auth.isLoggin()
+        return user.isLoggin()
     }
     
     private func getUrl(_ address: String) -> String {
@@ -52,8 +53,8 @@ public class EHDataLayer {
 extension EHDataLayer {
     
     public func getData() {
-        if auth.isLoggin() {
-            EHDispacher.global {
+        if user.isLoggin() {
+            self.dispacher.global {
                 self.getFinanse()
                 self.getJurnal()
                 self.getFile()
@@ -77,57 +78,57 @@ extension EHDataLayer {
 extension EHDataLayer {
     
     private func getFinanse() {
-        httpConnection.execute(getUrl("finanse/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
-            EHDispacher.main {
+        httpConnection.execute(getUrl("finanse/"), parameters: ["sid": user.sid], method: "GET") { data, error in
+            self.dispacher.main {
                 if error != nil {
                     self.rxData.onError(error!)
                     return
                 }
                 self.model.setFinanse(data: data)
                 self.rxData.onNext(self.model)
-                EHLogger.verbose("getFinanse()", error: error)
+                self.logger.verbose("getFinanse()", error: error)
             }
         }
     }
     
     private func getJurnal() {
-        httpConnection.execute(getUrl("jurnal/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
-            EHDispacher.main {
+        httpConnection.execute(getUrl("jurnal/"), parameters: ["sid": user.sid], method: "GET") { data, error in
+            self.dispacher.main {
                 if error != nil {
                     self.rxData.onError(error!)
                     return
                 }
                 self.model.setJurnal(data: data)
                 self.rxData.onNext(self.model)
-                EHLogger.verbose("getJurnal()", error: error)
+                self.logger.verbose("getJurnal()", error: error)
             }
         }
     }
     
     private func getFile() {
-        httpConnection.execute(getUrl("file/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
-            EHDispacher.main {
+        httpConnection.execute(getUrl("file/"), parameters: ["sid": user.sid], method: "GET") { data, error in
+            self.dispacher.main {
                 if error != nil {
                     self.rxData.onError(error!)
                     return
                 }
                 self.model.setFile(data: data)
                 self.rxData.onNext(self.model)
-                EHLogger.verbose("getFile()", error: error)
+                self.logger.verbose("getFile()", error: error)
             }
         }
     }
     
     private func getProfile() {
-        httpConnection.execute(getUrl("profile/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
-            EHDispacher.main {
+        httpConnection.execute(getUrl("profile/"), parameters: ["sid": user.sid], method: "GET") { data, error in
+            self.dispacher.main {
                 if error != nil {
                     self.rxData.onError(error!)
                     return
                 }
                 self.model.setProfile(data: data)
                 self.rxData.onNext(self.model)
-                EHLogger.verbose("getProfile()", error: error)
+                self.logger.verbose("getProfile()", error: error)
             }
         }
     }
@@ -137,75 +138,75 @@ extension EHDataLayer {
 extension EHDataLayer {
     
     private func getNum() {
-        EHDispacher.global { [self] in
-            httpConnection.execute(getUrl("num/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
-                EHDispacher.main {
+        self.dispacher.global { [self] in
+            httpConnection.execute(getUrl("num/"), parameters: ["sid": user.sid], method: "GET") { data, error in
+                self.dispacher.main {
                     if error != nil {
                         self.rxData.onError(error!)
                         return
                     }
                     self.model.setNum(data: data)
                     self.rxData.onNext(self.model)
-                    EHLogger.verbose("getNum()", error: error)
+                    self.logger.verbose("getNum()", error: error)
                 }
             }
         }
     }
     
     private func getAcc() {
-        EHDispacher.global { [self] in
-            httpConnection.execute(getUrl("acc/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
-                EHDispacher.main {
+        self.dispacher.global { [self] in
+            httpConnection.execute(getUrl("acc/"), parameters: ["sid": user.sid], method: "GET") { data, error in
+                self.dispacher.main {
                     if error != nil {
                         self.rxData.onError(error!)
                         return
                     }
                     self.model.setAcc(data: data)
                     self.rxData.onNext(self.model)
-                    EHLogger.verbose("getAcc()", error: error)
+                    self.logger.verbose("getAcc()", error: error)
                 }
             }
         }
     }
     
     private func getObj() {
-        EHDispacher.global { [self] in
-            httpConnection.execute(getUrl("obj/"), parameters: ["sid": auth.sid], method: "GET") { data, error in
-                EHDispacher.main {
+        self.dispacher.global { [self] in
+            httpConnection.execute(getUrl("obj/"), parameters: ["sid": user.sid], method: "GET") { data, error in
+                self.dispacher.main {
                     if error != nil {
                         self.rxData.onError(error!)
                         return
                     }
                     self.model.setObj(data: data)
                     self.rxData.onNext(self.model)
-                    EHLogger.verbose("getObj()", error: error)
+                    self.logger.verbose("getObj()", error: error)
                 }
             }
         }
     }
     
     private func getUsers() {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = String(format: "%@/staff/", url)
-            httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
-                EHDispacher.main {
+            httpConnection.execute(address, parameters: ["sid": user.sid], method: "GET") { data, error in
+                self.dispacher.main {
                     if error != nil {
                         self.rxData.onError(error!)
                         return
                     }
                     self.model.setUsers(data: data)
                     self.rxData.onNext(self.model)
-                    EHLogger.verbose("getUsers()", error: error)
+                    self.logger.verbose("getUsers()", error: error)
                 }
             }
         }
     }
     
     public func getArticle(result: @escaping PickerResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = String(format: "%@/article/", url)
-            httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
-                EHDispacher.main {
+            httpConnection.execute(address, parameters: ["sid": user.sid], method: "GET") { data, error in
+                self.dispacher.main {
                     if error != nil {
                         result(nil)
                         return
@@ -217,10 +218,10 @@ extension EHDataLayer {
     }
     
     public func getObject(result: @escaping PickerResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = String(format: "%@/objects/", url)
-            httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
-                EHDispacher.main {
+            httpConnection.execute(address, parameters: ["sid": user.sid], method: "GET") { data, error in
+                self.dispacher.main {
                     if error != nil {
                         result(nil)
                         return
@@ -232,10 +233,10 @@ extension EHDataLayer {
     }
     
     public func getCounterparty(result: @escaping PickerResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = String(format: "%@/accoun/", url)
-            httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
-                EHDispacher.main {
+            httpConnection.execute(address, parameters: ["sid": user.sid], method: "GET") { data, error in
+                self.dispacher.main {
                     if error != nil {
                         result(nil)
                         return
@@ -247,10 +248,10 @@ extension EHDataLayer {
     }
     
     public func getContractNumber(result: @escaping PickerResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = String(format: "%@/number/", url)
-            httpConnection.execute(address, parameters: ["sid": auth.sid], method: "GET") { data, error in
-                EHDispacher.main {
+            httpConnection.execute(address, parameters: ["sid": user.sid], method: "GET") { data, error in
+                self.dispacher.main {
                     if error != nil {
                         result(nil)
                         return
@@ -267,13 +268,13 @@ extension EHDataLayer {
 extension EHDataLayer {
     
     public func setFinanse(parameters: [String : Any], result: @escaping SaveResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = String(format: "%@/finanse/save/", url)
             var parameters = parameters
-            parameters["sid"] = auth.sid
+            parameters["sid"] = user.sid
             httpConnection.upload(address, parameters: parameters) { data, error in
                 let data = data as? [String: String] ?? nil
-                EHDispacher.main {
+                self.dispacher.main {
                     result(data, error)
                 }
             }
@@ -281,10 +282,10 @@ extension EHDataLayer {
     }
     
     public func setComleted(id: String, result: @escaping SaveResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = String(format: "%@/save/completed/", url)
             httpConnection.execute(address, parameters: ["id": id], method: "GET") { _, error in
-                EHDispacher.main {
+                self.dispacher.main {
                     result(nil, error)
                 }
             }
@@ -292,12 +293,12 @@ extension EHDataLayer {
     }
     
     public func setCash(parameters: [String : String], comleted: Bool, result: @escaping CashResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = comleted == true ? String(format: "%@/kassa/completed/", url) : String(format: "%@/kassa/", url)
             var parameters = parameters
-            parameters["sid"] = auth.sid
+            parameters["sid"] = user.sid
             httpConnection.execute(address, parameters: parameters, method: "POST") { data, error in
-                EHDispacher.main {
+                self.dispacher.main {
                     result(data as? [String : Any], error)
                 }
             }
@@ -305,13 +306,13 @@ extension EHDataLayer {
     }
     
     public func setJurnal(parameters: [String : Any], result: @escaping SaveResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = String(format: "%@/jurnal/save/", url)
             var parameters = parameters
-            parameters["sid"] = auth.sid
+            parameters["sid"] = user.sid
             httpConnection.upload(address, parameters: parameters) { data, error in
                 let data = data as? [String: String] ?? nil
-                EHDispacher.main {
+                self.dispacher.main {
                     result(data, error)
                 }
             }
@@ -319,13 +320,13 @@ extension EHDataLayer {
     }
     
     public func setFile(parameters: [String : Any], result: @escaping SaveResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let address = String(format: "%@/file/save/", url)
             var parameters = parameters
-            parameters["sid"] = auth.sid
+            parameters["sid"] = user.sid
             httpConnection.upload(address, parameters: parameters) { data, error in
                 let data = data as? [String: String] ?? nil
-                EHDispacher.main {
+                self.dispacher.main {
                     result(data, error)
                 }
             }
@@ -336,14 +337,14 @@ extension EHDataLayer {
 //MARK: - Registration
 extension EHDataLayer {
     public func onLoggin(_ email: String, pass: String, logginResult: @escaping LogginResult) {
-        EHDispacher.global { [self] in
+        self.dispacher.global { [self] in
             let parameters = ["login": email, "password": pass, "device_token": "-", "fsm_token": "-"]
             httpConnection.execute(getUrl("auth/login/"), parameters: parameters, method: "POST") { [self] result, error in
-                EHDispacher.main {
+                self.dispacher.main {
                     if error == nil {
                         let data = result as! [String: Any]
                         let model = AuthModel(root: data["root"] as! Bool, sid: data["sid"] as! String, error: data["error"] as! String, mqtt: data["mqtt"] as! Bool)
-                        auth.update(model: model)
+                        user.update(model: model)
                         getData()
                     }
                     logginResult(error)
@@ -354,7 +355,7 @@ extension EHDataLayer {
     
     public func onLogOut(result: @escaping () -> ()) {
         model.clearAll()
-        auth.logOut()
+        user.logOut()
         result()
     }
 }
